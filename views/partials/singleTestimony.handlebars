@@ -1,0 +1,31 @@
+
+{{#if url}}
+<div class="testimonial-post">
+    <div class="testimonial-content">
+        <div class="testimony-text-col">
+            <div class="testimony-text">
+                <h2>{{name}}</h2>
+                <p class="testimony-desc">{{desc}}</p>
+            </div>
+            <button type="button" class="readMore buttons" data-date="{{date}}" >Read More</button>
+        </div>
+        <div class="testimony-pic">
+            <img src="{{url}}" alt="{{alt}}">
+        </div>
+    </div>
+</div>
+{{else}}
+<div class="testimonial-post">
+    <div class="testimonial-content column">
+        <div class="testimony-text">
+            <h2>{{name}}</h2>
+            <p class="testimony-desc">{{desc}}</p>
+        </div>
+        <button type="button" class="readMore buttons" data-date="{{date}}">Read More</button>
+    </div>
+</div>
+{{/if}}
+
+
+
+

@@ -1,0 +1,64 @@
+
+<div class="homePageContent contentContainer">
+    <section class="slideshow-container">
+        {{#each slides}}
+            {{> slideshow}}
+        {{/each}}
+        <!-- Navigation Buttons -->
+        <div class="slideshow-navigation">
+            <button class="prev-slide">&#8592;</button>
+            <button class="next-slide">&#8594;</button>
+        </div>
+    </section>
+
+    <h1>
+        About WiCyS @ Oregon State University
+    </h1>
+    <p>
+        Our mission is to help build a diverse cybersecurity workforce by facilitating the recruitment, retention, and advancement of women in cybersecurity. However, this club is not exclusive to women or those identify as women, we accept all allies!
+    </p>
+
+    <h1>
+        Testimonies
+    </h1>
+    <p>
+        {{firstTestimony}}
+    </p>
+    <a href="/testimonials">See more Testimonies!</a>
+
+    <h1>
+        Give Us Your Feedback!
+    </h1>
+    <div class="centerForm">
+        <div class="formDiv">    
+            <form class="formContainer" id="testimonyForm">
+                <div class="formInputContainer">
+                    <label for="Name" class="formInputLabel">Name:</label>
+                    <div class="formInputElement">
+                        <input type="text" id="testimonyName" name="testimonyName" class="formInput">
+                    </div>
+                </div>
+
+                <div class="formInputContainer">
+                    <label for="Message" class="formInputLabel">Message:</label>
+                    <div class="formInputElement">
+                        <textarea id="testimonyInput" name="testimonyInput" class="formInput" wrap="soft" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="formInputContainer">
+                    <label for="Image" class="formInputLabel">Image:</label>
+                    <div class="formInputElement">
+                        <input type="text" id="testimonyImage" name="testimonyImage" class="formInput">
+                    </div>
+                </div>
+
+                <div class="formInputContainer">
+                    <div class="formInputElement formInputWidth" id="submitButtonContainer">
+                        <input type="button" value="Submit" class="buttons" id="testimonySubmit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

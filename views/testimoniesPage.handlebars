@@ -1,0 +1,75 @@
+<main>
+    <div class="testimonies-all-content">
+        <div id="testimonies-filter-container">
+            <h2>Filters</h2>
+
+            <div class="filter-input-container">
+                <label for="filter-text" class="filter-input-label">Text</label>
+                <div class="filter-input-element">
+                    <input type="text" id="filter-text" class="filter-input">
+                </div>
+            </div>
+
+            <div class="filter-input-container">
+                <label for="filter-start" class="filter-input-label">Start Date</label>
+                <div class="filter-input-element">
+                    <input type="date" id="filter-start" class="filter-input">
+                </div>
+            </div>
+
+            <div class="filter-input-container">
+                <label for="filter-end" class="filter-input-label">End Date</label>
+                <div class="filter-input-element">
+                    <input type="date" id="filter-end" class="filter-input">
+                </div>
+            </div>
+
+            <div class="filter-input-container">
+                <label for="filter-include-image" class="filter-input-label">Include Image</label>
+                <div class="filter-input-element">
+                    <select id="filter-image" class="filter-input" name="filter-image">
+                        <option selected value="Both">Both</option>
+                        <option  value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="updateButtonContainer">
+                <button id="filter-update-button" type="button" class="buttons">Update</button>
+            </div>
+
+        </div>
+
+        <div id="testimonies-column">
+            <div class="testimonial-header">
+                <h1>Testimonials</h1>
+            </div>
+
+            <div id="testimonies-flex">
+                {{#each testimonyData}}
+                    {{> singleTestimony}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    {{!-- Referenced from CS290 Assignment 5 --}}
+    <div id="modal-backdrop" class="hidden"></div>
+    <div id="read-more-modal" class="contentContainer hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 id="modal-title">someTitle</h3>
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="testimony-desc-container">
+                    <p id="modal-desc" class="testimony-desc-full">someDesc</p>
+                </div>
+                <div class="testimony-img-container" id="modal-img-container">
+                    <img src="/images/someUrl" alt="someAlt" id="modal-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -28,7 +28,7 @@ templates['singlePost'] = template({"1":function(container,depth0,helpers,partia
     };
 
   return "<div class=\"blog-post\">\r\n    <div class=\"blog-content column\">\r\n        <div class=\"testimony-text\">\r\n            <h2>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":21,"column":16},"end":{"line":21,"column":24}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"title") || (depth0 != null ? lookupProperty(depth0,"title") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data,"loc":{"start":{"line":21,"column":16},"end":{"line":21,"column":25}}}) : helper)))
     + "</h2>\r\n            <p class=\"blog-desc\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"desc") || (depth0 != null ? lookupProperty(depth0,"desc") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"desc","hash":{},"data":data,"loc":{"start":{"line":22,"column":33},"end":{"line":22,"column":41}}}) : helper)))
     + "</p>\r\n        </div>\r\n        <button type=\"button\" class=\"readMore buttons\" data-date=\""

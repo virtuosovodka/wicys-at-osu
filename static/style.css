@@ -54,13 +54,13 @@ p {
     padding-top: 10px;
 }
 
-/* Testimonial - all page content */
-.testimonies-all-content {
+/* Blog - all page content */
+.blog-all-content {
     display:flex;
 }
 
-/* Testimonial Page Filter Styling */
-#testimonies-filter-container {
+/* Blog Page Filter Styling */
+#blog-filter-container {
     background-color: #AAAAAA;
     min-width: 200px;
     height: 310px;
@@ -70,7 +70,7 @@ p {
     padding: 20px;
 }
 
-#testimonies-filter-container h2 {
+#blog-filter-container h2 {
     margin: 0px;
 }
 
@@ -153,11 +153,11 @@ p {
     padding: 20px;
 }
 
-.testimony-desc-full {
+.blog-desc-full {
     overflow: auto;
 }
 
-.testimony-desc-container{
+.blog-desc-container{
     max-width: 50%;
     margin-right: 20px;
 }
@@ -172,7 +172,7 @@ p {
 }
 
 /* Adjustments to Center Image Inside Modal */
-#read-more-modal .testimony-img-container {
+#read-more-modal .blog-img-container {
     display: flex;
     justify-content: center; /* Center the image horizontally */
     align-items: center; /* Center the image vertically */
@@ -180,7 +180,7 @@ p {
     margin-bottom: 20px; /* Space between the image and the text */
 }
 
-.testimony-img-container img {
+.blog-img-container img {
     max-width: 100%; /* Ensure image takes up available width */
     max-height: 70vh; /* Ensure the image height does not overflow the viewport */
     object-fit: cover;
@@ -197,22 +197,22 @@ p {
     background-color: rgba(0, 0, 0, 0.85);
 }
 
-/* Testimonial Page Title */
-.testimonial-header {
+/* Blog Page Title */
+.blog-header {
     width: 100%;
     margin: 10px 0 5px 5px;
     padding-top: 5px;
     padding-left: 7px;
 }
 
-/* Testimony Posts Container */
-#testimonies-flex {
+/* Blog Posts Container */
+#blog-flex {
     display: flex;
     flex-wrap: wrap;
 }
 
 /* Single Post Container */
-.testimonial-post {
+.blog-post {
     display: inline-block;
     vertical-align: top;
     height: 200px;
@@ -224,13 +224,13 @@ p {
 }
 
 /* Container for Text and Image */
-.testimonial-content {
+.blog-content {
     display: flex;
     height: 100%;
     width: 100%;
 }
 
-.testimonial-content.column {
+.blog-content.column {
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -241,8 +241,8 @@ p {
     margin-top: 5px;
 }
 
-/* Testimony Text and Read More Button Styling */
-.testimony-text-col {
+/* Blog Text and Read More Button Styling */
+.blog-text-col {
     display: flex;
     flex-direction: column;
     width: 55%;
@@ -250,11 +250,11 @@ p {
     justify-content: center;
     align-items: center;
 }
-.testimony-text {
+.blog-text {
     width: 100%;
 }
 
-.testimony-desc {
+.blog-desc {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -264,13 +264,13 @@ p {
     width: 50px;
 }
 
-/* Testimony Image Styling */
-.testimony-pic {
+/* Blog Image Styling */
+.blog-pic {
     max-width: 45%;
     max-height: 100%;
 }
 
-.testimony-pic img {
+.blog-pic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -494,10 +494,12 @@ footer img {
     background-color: #6A6A6A;
     color: white;
     padding: 20px;
-    margin-top: 20px;
-    width: 50%;
     border-radius: 10px;
     text-align: center;
+}
+
+.contact-container {
+    width: 40vw;
 }
 
 .centerForm {
@@ -527,7 +529,7 @@ footer img {
     border-radius: 3px;
 }
 
-#testimonyInput {
+#blogInput {
     resize: none;
     width: 80%;
 }

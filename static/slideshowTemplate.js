@@ -12,14 +12,14 @@ templates['slideshow'] = template({"1":function(container,depth0,helpers,partial
 
   return "<div class=\"slide "
     + ((stack1 = (lookupProperty(helpers,"addClassToFirst")||(depth0 && lookupProperty(depth0,"addClassToFirst"))||alias2).call(alias1,(data && lookupProperty(data,"index")),{"name":"addClassToFirst","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":1,"column":18},"end":{"line":1,"column":71}}})) != null ? stack1 : "")
-    + "\">\n    <div class=\"slide-content\">\n        <div>\n            <h3>"
+    + "\">\r\n    <div class=\"slide-content\">\r\n        <div>\r\n            <h3>"
     + alias4(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data,"loc":{"start":{"line":4,"column":16},"end":{"line":4,"column":24}}}) : helper)))
-    + "</h3>\n            <p>"
+    + "</h3>\r\n            <p>"
     + alias4(((helper = (helper = lookupProperty(helpers,"desc") || (depth0 != null ? lookupProperty(depth0,"desc") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"desc","hash":{},"data":data,"loc":{"start":{"line":5,"column":15},"end":{"line":5,"column":23}}}) : helper)))
-    + "</p>\n        </div>\n        <img src=\""
+    + "</p>\r\n        </div>\r\n        <img src=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"url") || (depth0 != null ? lookupProperty(depth0,"url") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"url","hash":{},"data":data,"loc":{"start":{"line":7,"column":18},"end":{"line":7,"column":25}}}) : helper)))
     + "\" alt=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"alt") || (depth0 != null ? lookupProperty(depth0,"alt") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"alt","hash":{},"data":data,"loc":{"start":{"line":7,"column":32},"end":{"line":7,"column":39}}}) : helper)))
-    + "\">\n    </div>\n</div>\n";
+    + "\">\r\n    </div>\r\n</div>\r\n";
 },"useData":true});
 })();

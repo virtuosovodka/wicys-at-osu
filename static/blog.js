@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click event to each button
     readMoreButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Find the parent testimonial
-            const testimonialPost = this.closest('.testimonial-post');
-            const description = testimonialPost.querySelector('.testimony-desc');
+            // Find the parent blog post
+            const blogPost = this.closest('.blog-post');
+            const description = blogPost.querySelector('.blog-desc');
             
             // Toggle between showing full or truncated text
             if (this.textContent === 'Read More') {
@@ -20,6 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    console.log('Testimonials JS loaded successfully');
+    console.log('Blog JS loaded successfully');
 });
 

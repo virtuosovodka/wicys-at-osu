@@ -1,6 +1,7 @@
 <main>
-    <div class="testimonies-all-content">
-        <div id="testimonies-filter-container">
+    <script src="./blog.js" charset="utf-8" defer></script>
+    <div class="blog-all-content">
+        <div id="blog-filter-container">
             <h2>Filters</h2>
 
             <div class="filter-input-container">
@@ -41,20 +42,19 @@
 
         </div>
 
-        <div id="testimonies-column">
-            <div class="testimonial-header">
-                <h1>Testimonials</h1>
+        <div id="blog-column">
+            <div class="blog-header">
+                <h1>WiCyS @ OSU Blog</h1>
             </div>
 
-            <div id="testimonies-flex">
-                {{#each testimonyData}}
-                    {{> singleTestimony}}
+            <div id="blog-flex">
+                {{#each blogData}}
+                    {{> singlePost}}
                 {{/each}}
             </div>
         </div>
     </div>
 
-    {{!-- Referenced from CS290 Assignment 5 --}}
     <div id="modal-backdrop" class="hidden"></div>
     <div id="read-more-modal" class="contentContainer hidden">
         <div class="modal-dialog">
@@ -63,10 +63,10 @@
                 <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="testimony-desc-container">
-                    <p id="modal-desc" class="testimony-desc-full">someDesc</p>
+                <div class="blog-desc-container">
+                    <p id="modal-desc" class="blog-desc-full">someDesc</p>
                 </div>
-                <div class="testimony-img-container" id="modal-img-container">
+                <div class="blog-img-container" id="modal-img-container">
                     <img src="/images/someUrl" alt="someAlt" id="modal-img">
                 </div>
             </div>

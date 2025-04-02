@@ -9,6 +9,16 @@ html, body {
     height: 100%;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
 /* Typography */
 h1 {
     color: 181414;
@@ -467,6 +477,7 @@ footer {
     margin-top: 50px;
     text-align: center;
     background-color: #A6A9A9;
+    width: 100%;
 }
 
 footer img {

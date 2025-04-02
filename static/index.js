@@ -7,56 +7,90 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (slides.length > 0 && nextSlideButton && prevSlideButton) {
 		let currentSlide = 0;
 
-		// Next slide button click handler
 		nextSlideButton.addEventListener('click', () => {
 			slides[currentSlide].classList.remove('active');
 			currentSlide = (currentSlide + 1) % slides.length;
 			slides[currentSlide].classList.add('active');
 		});
 
-		// Previous slide button click handler
 		prevSlideButton.addEventListener('click', () => {
 			slides[currentSlide].classList.remove('active');
 			currentSlide = (currentSlide - 1 + slides.length) % slides.length;
 			slides[currentSlide].classList.add('active');
 		});
 	}
-	
+
 	// for invite link
-	if (window.location.pathname=="/contact.html"){
-		link=document.getElementById('ils');
-		link.setAttribute("href",atob("aHR0cHM6Ly9kaXNjb3JkLmdnL1BVdjNDejlQeks="));
+	if (window.location.pathname == "/contact.html") {
+		link = document.getElementById('ils');
+		link.setAttribute("href", atob("aHR0cHM6Ly9kaXNjb3JkLmdnL1BVdjNDejlQeks="));
 	}
 
+	// JS for Blog Post filtering
+	var allPosts = [];
+	var postElems = document.getElementsByClassName('blog-post');
 
-	//JS for Blog Post filtering:
-	var allPosts = []
-	var postElems = document.getElementsByClassName('blog-post')
-
+	// Parse all posts on page load
 	for (var i = 0; i < postElems.length; i++) {
-		console.log("Inspecting post element: ", postElems[i]);  // Check the DOM element
-		allTestimonies.push(parsePostElem(postElems[i]));
+		console.log("Inspecting post element: ", postElems[i]);
+		allPosts.push(parsePostElem(postElems[i]));
 	}
 
-	//Check if the filter button exists
-	var filterUpdateButton = document.getElementById('filter-update-button');
+	// Check if the filter elements exist
+	var filterTextInput = document.getElementById('filter-text');
+	var filterStartInput = document.getElementById('filter-start');
+	var filterEndInput = document.getElementById('filter-end');
+	var filterImageSelect = document.getElementById('filter-image');
 
-	if (filterUpdateButton) {
-		console.log("filter button: ", filterUpdateButton)
+	// Add event listener to filter reset button
+	var resetButton = document.getElementById('filter-reset-button');
+	resetButton.addEventListener('click', clearFiltersAndShowAllPosts);
 
-		filterUpdateButton.addEventListener('click', function() {
-			console.log('Filter button clicked');
-			doFilterUpdate(); 
+	// Add input event listeners to automatically update filters when inputs change
+	if (filterTextInput) {
+		filterTextInput.addEventListener('input', function () {
+			// Add debounce for better performance
+			clearTimeout(filterTextInput.debounceTimer);
+			filterTextInput.debounceTimer = setTimeout(doFilterUpdate, 300);
 		});
 	}
 
-	function clearFiltersAndReinsertTestimonies() {
-		document.getElementById('filter-text').value = ""
-		document.getElementById('filter-start').value = ""
-		document.getElementById('filter-end').value = ""
-		document.getElementById('filter-image').value = "Both"
+	if (filterStartInput) {
+		filterStartInput.addEventListener('change', doFilterUpdate);
+	}
 
-		doFilterUpdate()
+	if (filterEndInput) {
+		filterEndInput.addEventListener('change', doFilterUpdate);
+	}
+
+	if (filterImageSelect) {
+		filterImageSelect.addEventListener('change', doFilterUpdate);
+	}
+
+	if (filterUpdateButton) {
+		console.log("Filter button found:", filterUpdateButton);
+		filterUpdateButton.addEventListener('click', doFilterUpdate);
+	} else {
+		console.log("Filter button not found");
+	}
+
+	function clearFiltersAndShowAllPosts() {
+		// Clear all filter inputs
+		if (filterTextInput) filterTextInput.value = "";
+		if (filterStartInput) filterStartInput.value = "";
+		if (filterEndInput) filterEndInput.value = "";
+		if (filterImageSelect) filterImageSelect.value = "Both";
+
+		// Show all posts
+		var postContainer = document.getElementById('blog-flex');
+		if (postContainer) {
+			var postChildren = postContainer.children;
+			for (var j = 0; j < postChildren.length; j++) {
+				postChildren[j].classList.remove('hidden');
+			}
+		}
+
+		console.log("All filters cleared, showing all posts");
 	}
 
 	/*
@@ -64,307 +98,250 @@ document.addEventListener('DOMContentLoaded', function () {
 	 * if the blog passes the filters and should be displayed and false otherwise.
 	 */
 	function postPassesFilters(post, filters) {
+		console.log("Checking post against filters:", post.name);
 
+		// Text filter check - now using includes() for partial string matching
 		var passesText = true;
 		if (filters.text) {
-			var postMessage = post.desc.toLowerCase();
-			var postName = post.name.toLowerCase();
+			var postName = (post.name || '').toLowerCase();
+			var postDesc = (post.desc || '').toLowerCase();
 			var filterText = filters.text.toLowerCase();
-			if (postMessage.indexOf(filterText) === -1 && postName.indexOf(filterText) === -1) {
-				console.log("filter text doesn't appear")
+
+			// Use includes() for partial string matching
+			if (!postName.includes(filterText) && !postDesc.includes(filterText)) {
+				console.log("Post doesn't pass text filter");
 				passesText = false;
-			}else{
-				console.log("filter text appears")
-			}
-		}
-
-
-		var passesStart = true;
-		if (!isNaN(filters.startDate.getTime())) {
-			// Ensure the post date is a valid Date object
-			var postDate = new Date(post.date);
-			var filterDate = new Date(filters.startDate);
-			console.log("date: " + postDate)
-			console.log("filters date: " + filterDate)
-			if (isNaN(postDate.getTime())) {
-				console.log("filter date not in range")
-				passesStart = false; // If post date is invalid, skip it
 			} else {
-				console.log("post date: ", postDate)
-				// Compare the post date with the filter start date
-				if (postDate.getTime() < filterDate.getTime()) {
-					console.log("filter date not in range start")
-					passesStart = false; // Testimony date is earlier than the filter start date
-				}else{
-					console.log("filter date in range start")
-				}
+				console.log("Post passes text filter");
 			}
-
 		}
 
-		var passesEnd = true;
-		if (!isNaN(filters.endDate.getTime())) {
-			// Ensure the post date is a valid Date object
-			var postDate = new Date(post.date);
-			var filterDate = new Date(filters.endDate);
-			// Set filterDate to end of day for the endDate comparison
-			filterDate.setUTCHours(23,59,59,999);
-			console.log("date: " + postDate)
-			console.log("filters date: " + filterDate)
+		// Start date filter check
+		var passesStart = true;
+		if (filters.startDate && !isNaN(filters.startDate.getTime())) {
+			// Ensure post date is valid
+			var postDate = post.date instanceof Date ? post.date : new Date(post.date);
+
 			if (isNaN(postDate.getTime())) {
-				console.log("filter date not in range")
-				passesEnd = false; // If post date is invalid, skip it
-			}else{
-				console.log("post date: ", postDate)
-				// Compare the post date with the filter end date
-				if (postDate.getTime() > filterDate.getTime()) {
-					console.log("filter date not in range end")
-					passesEnd = false; // Testimony date is later than the filter end date
-				}else{
-					console.log("filter date in range end")
-				}
+				console.log("Post has invalid date");
+				passesStart = false;
+			} else if (postDate < filters.startDate) {
+				console.log("Post doesn't pass start date filter");
+				passesStart = false;
+			} else {
+				console.log("Post passes start date filter");
 			}
-
-
 		}
 
-		// Do no image filtering if user wants both 
+		// End date filter check
+		var passesEnd = true;
+		if (filters.endDate && !isNaN(filters.endDate.getTime())) {
+			// Ensure post date is valid
+			var postDate = post.date instanceof Date ? post.date : new Date(post.date);
+			var filterEndDate = new Date(filters.endDate);
+			// Set end date to end of day
+			filterEndDate.setHours(23, 59, 59, 999);
+
+			if (isNaN(postDate.getTime())) {
+				console.log("Post has invalid date");
+				passesEnd = false;
+			} else if (postDate > filterEndDate) {
+				console.log("Post doesn't pass end date filter");
+				passesEnd = false;
+			} else {
+				console.log("Post passes end date filter");
+			}
+		}
+
+		// Image filter check
 		var passesImage = true;
-		if (!(filters.includeImage === "Both")) {
-			if (filters.includeImage === "Yes") { //filtering includes posts with images
-				console.log("yes images")
-				if (!post.url) {
-					passesImage = false;
-				}
-			}else{ //filtering includes posts without images
-				console.log("no images")
-				if(post.url){
-					passesImage = false;
-				}
+		if (filters.includeImage !== "Both") {
+			var hasImage = !!post.url;
+
+			if (filters.includeImage === "Yes" && !hasImage) {
+				console.log("Post doesn't pass image=Yes filter");
+				passesImage = false;
+			} else if (filters.includeImage === "No" && hasImage) {
+				console.log("Post doesn't pass image=No filter");
+				passesImage = false;
+			} else {
+				console.log("Post passes image filter");
 			}
 		}
 
-
-		return passesImage && passesText && passesEnd && passesStart;
+		var passes = passesText && passesStart && passesEnd && passesImage;
+		console.log(`Post "${post.name}" overall filter result: ${passes ? "PASS" : "FAIL"}`);
+		return passes;
 	}
 
 	/*
 	 * Applies the filters currently entered by the user to the set of all posts.
 	 * Any post that satisfies the user's filter values will be displayed,
 	 * including posts that are not currently being displayed because they didn't
-	 * satisfy an old set of filters.  Testimonies that don't satisfy the filters are
-	 * removed from the DOM.
+	 * satisfy an old set of filters. Posts that don't satisfy the filters are
+	 * hidden.
 	 */
 	function doFilterUpdate() {
+		console.log("Applying filters to posts");
+
+		// Check if all filters are empty - if so, show all posts
+		var isTextEmpty = !filterTextInput || filterTextInput.value.trim() === "";
+		var isStartEmpty = !filterStartInput || filterStartInput.value === "";
+		var isEndEmpty = !filterEndInput || filterEndInput.value === "";
+		var isImageDefault = !filterImageSelect || filterImageSelect.value === "Both";
+
+		if (isTextEmpty && isStartEmpty && isEndEmpty && isImageDefault) {
+			console.log("All filters are empty, showing all posts");
+			clearFiltersAndShowAllPosts();
+			return;
+		}
+
 		/*
 		 * Grab values of filters from user inputs.
 		 */
-
 		var filters = {
-			text: document.getElementById('filter-text').value.trim(),
-			startDate: new Date(document.getElementById('filter-start').value), // Convert to Date object
-			endDate: new Date(document.getElementById('filter-end').value), // Convert to Date object
-			includeImage: document.getElementById('filter-image').value // Either "Yes" or "No"
+			text: filterTextInput ? filterTextInput.value.trim() : "",
+			startDate: filterStartInput ? new Date(filterStartInput.value) : new Date(0),
+			endDate: filterEndInput ? new Date(filterEndInput.value) : new Date(0),
+			includeImage: filterImageSelect ? filterImageSelect.value : "Both"
+		};
+
+		console.log("Filter values:", {
+			text: filters.text,
+			startDate: filterStartInput ? filterStartInput.value : "",
+			endDate: filterEndInput ? filterEndInput.value : "",
+			includeImage: filters.includeImage
+		});
+
+		// Reset all post visibilities first
+		var postContainer = document.getElementById('blog-flex');
+		if (!postContainer) {
+			console.error("Blog container not found!");
+			return;
 		}
 
-		var postContainer = document.getElementById('blog-flex')
-		var postChildren = postContainer.children
+		var postChildren = postContainer.children;
 
-		// Reset post elements back to normal by making them visible again
-		for (var j = 0; j < postChildren.length;j++) {
-			if (postChildren[j].classList.contains('hidden')) {
-				postChildren[j].classList.remove('hidden')
+		// Reset all posts to visible
+		for (var j = 0; j < postChildren.length; j++) {
+			postChildren[j].classList.remove('hidden');
+		}
+
+		// Hide posts that don't pass the filters
+		for (var i = 0; i < allPosts.length; i++) {
+			if (!postPassesFilters(allPosts[i], filters)) {
+				if (i < postChildren.length) {
+					postChildren[i].classList.add('hidden');
+				}
 			}
 		}
 
-		/*
-		 * "Remove" all "post" elements by hiding them.
-		 */ 
-		var i = 0
-		allTestimonies.forEach(function (post) {
-			if (!(postPassesFilters(post, filters))) {
-				postChildren[i].classList.add('hidden')
-			}
-			i++
-		})
-
+		console.log("Filter application complete");
 	}
-
 
 	/*
 	 * This function parses an existing DOM element representing a single post
-	 * into an object representing that post and returns that object.  The object
-	 * is structured like this:
-	 *
-	 * {
-	 *   name: "...",
-	 *   desc: "...",
-	 *   url: ...,
-	 *   alt: "...",
-	 *   date: "..."
-	 * }
+	 * into an object representing that post and returns that object.
 	 */
-	function parsePostElem(postData) {
+	function parsePostElem(postElem) {
 		var post = {};
 
-		// Get the image element for the URL and alt text
-		var postImageElem = postData.querySelector('.blog-pic img');
+		// Get the image element
+		var postImageElem = postElem.querySelector('.blog-pic img');
 		if (postImageElem) {
-			post.url = postImageElem.src; // Get the image source
-			post.alt = postImageElem.alt; // Get the alt text
+			post.url = postImageElem.src;
+			post.alt = postImageElem.alt || "Blog image";
 		} else {
-			post.url = null;  // If no image, set to null
-			post.alt = "No image provided"; // Default alt text
+			post.url = null;
+			post.alt = null;
 		}
 
-		// Get the name from the h2 element
-		var nameElem = postData.querySelector('.blog-text h2');
-		if (nameElem) {
-			post.name = nameElem.innerText.trim(); // Get the name text and trim any extra spaces
+		// Get the title from h2 element
+		var titleElem = postElem.querySelector('.blog-text h2');
+		if (titleElem) {
+			post.name = titleElem.textContent.trim();
 		} else {
-			post.name = ''; // If no name found, set to empty string
+			post.name = "";
 		}
 
-		// Get the description from the p element with the class "blog-desc"
-		var descElem = postData.querySelector('.blog-desc');
+		// Get the description text
+		var descElem = postElem.querySelector('.blog-desc');
 		if (descElem) {
-			post.desc = descElem.innerText.trim(); // Get the description text and trim any extra spaces
+			post.desc = descElem.textContent.trim();
 		} else {
-			post.desc = ''; // If no description found, set to empty string
+			post.desc = "";
 		}
 
-		// Get the date from a custom data attribute, data-date
-		var dateElem = postData.querySelector('[data-date]');
-		if (dateElem) {
-			post.date = new Date(dateElem.getAttribute('data-date')); // Convert date string to Date object
+		// Get the date - look for a data-date attribute at various levels
+		var dateElem = postElem.querySelector('[data-date]') || postElem;
+		var dateStr = dateElem.getAttribute('data-date');
+
+		if (dateStr) {
+			post.date = new Date(dateStr);
+			// If date parsing failed, set to a default date
+			if (isNaN(post.date.getTime())) {
+				console.warn("Invalid date found:", dateStr);
+				post.date = new Date(); // Fallback to current date
+			}
 		} else {
-			post.date = new Date(); // If no date found, set to current date
+			console.warn("No date attribute found for post:", post.name);
+			post.date = new Date(); // Default to current date
 		}
 
+		console.log("Parsed post:", post);
 		return post;
 	}
 
-
-	// JS for Testimony Modals
-	// Debugging: Ensure the script is running
-	console.log("Script is running");
-
-	// Modal element references (Ensure these exist on the page before interacting with them)
+	// Model Functionality
 	var modal = document.getElementById('read-more-modal');
 	var modalBackdrop = document.getElementById('modal-backdrop');
 	var modalCloseButton = document.getElementById('modal-close');
 
-	// Debugging: Check if modal elements are found
 	if (modal && modalBackdrop && modalCloseButton) {
-		console.log("Modal:", modal);
-		console.log("Modal Backdrop:", modalBackdrop);
-		console.log("Modal Close Button:", modalCloseButton);
+		// Function to show the modal
+		function showModal(event) {
+			var button = event.currentTarget;
+			var postElement = button.closest('.blog-post');
+			var post = parsePostElem(postElement);
 
-		// Fetch post data from the server
-		fetch('/postData.json')
-			.then(response => response.json())
-			.then(postData => {
-				console.log("Post Data fetched:", postData);
+			// Update modal content
+			modal.querySelector('.modal-header h3').textContent = post.name;
+			modal.querySelector('.blog-desc-full').textContent = post.desc;
 
-				// Function to show the modal
-				function showModal(event) {
-					var button = event.target;
-					console.log("Button clicked:", button);
+			var modalImg = modal.querySelector('.blog-img-container img');
+			var modalImgContainer = modal.querySelector('.blog-img-container');
 
-					// Retrieve the index of the clicked button
-					var index = button.getAttribute('data-index');
-					var post = postData[index]; // Use the index to get the correct post data
-
-					// Debugging: Log data for modal
-					console.log("Modal data:", post);
-
-					// Update modal content
-					modal.querySelector('.modal-header h3').textContent = post.name;
-					modal.querySelector('.blog-desc-full').textContent = post.desc;
-					var img = modal.querySelector('.post-img-container img');
-					img.src = post.url;
-					img.alt = post.alt;
-
-					// Show the modal
-					modal.classList.remove('hidden');
-					modalBackdrop.classList.remove('hidden');
-					console.log("Modal displayed.");
-				}
-
-				// Function to hide the modal
-				function hideModal() {
-					modal.classList.add('hidden');
-					modalBackdrop.classList.add('hidden');
-					console.log("Modal hidden.");
-				}
-
-
-				// Attach event listeners to "Read More" buttons if they exist
-				var readMoreButtons = document.querySelectorAll('.readMore');
-				console.log("Found Read More Buttons:", readMoreButtons);
-
-				// Safeguard: Check if readMoreButtons exist and attach listeners
-				if (readMoreButtons.length === 0) {
-					console.warn("No Read More buttons found. Check your HTML structure and class names.");
-				} else {
-					readMoreButtons.forEach(function (button, index) {
-						// Store the index on the button element to pass to the modal function
-						button.setAttribute('data-index', index);
-						button.addEventListener('click', showModal);
-						console.log("Event listener attached to button:", button);
-					});
-				}
-
-				// Attach event listener to close button
-				modalCloseButton.addEventListener('click', hideModal);
-				console.log("Event listener attached to modal close button.");
-
-				// Ensure clicking on the backdrop also closes the modal
-				modalBackdrop.addEventListener('click', hideModal);
-			})
-			.catch(error => {
-				console.error("Error fetching post data:", error);
-			});
-	} else {
-		console.error("Modal or related elements not found. Please ensure they exist in the HTML structure.");
-	}
-
-
-
-	// Safeguard for Contact Form Elements
-	var nameVal = document.getElementById("contactName");
-	var email = document.getElementById("contactEmail");
-	var phone = document.getElementById("contactPhone");
-	var message = document.getElementById("contactInput");
-	var submitButton = document.getElementById("contactSubmit");
-
-	// Safeguard: Ensure elements exist before attaching event listeners
-	if (nameVal && email && phone && message && submitButton) {
-		// Function to clear input fields
-		function clearInput() {
-			nameVal.value = '';
-			email.value = '';
-			phone.value = '';
-			message.value = '';
-		}
-
-		// Function to handle form submission
-		function submitContact() {
-			console.log("here");
-
-			// Check if all fields are filled
-			if (nameVal.value == '' || email.value == '' || phone.value == '' || message.value == '') {
-				alert('All fields must be completed');
+			if (post.url) {
+				modalImg.src = post.url;
+				modalImg.alt = post.alt || "Blog image";
+				modalImgContainer.classList.remove('hidden');
 			} else {
-				alert('Thanks for reaching out!');
-				clearInput(); // Clear input fields after submission
+				modalImgContainer.classList.add('hidden');
 			}
+
+			// Show the modal
+			modal.classList.remove('hidden');
+			modalBackdrop.classList.remove('hidden');
 		}
 
-		// Attach event listener to submit button
-		submitButton.addEventListener("click", submitContact);
-	} else {
-		console.error("Contact form elements not found. Ensure the correct IDs are applied.");
+		// Function to hide the modal
+		function hideModal() {
+			modal.classList.add('hidden');
+			modalBackdrop.classList.add('hidden');
+		}
+
+		// Attach event listeners to "Read More" buttons
+		var readMoreButtons = document.querySelectorAll('.readMore');
+
+		readMoreButtons.forEach(function (button) {
+			button.addEventListener('click', showModal);
+		});
+
+		// Attach event listener to close button
+		modalCloseButton.addEventListener('click', hideModal);
+
+		// Ensure clicking on the backdrop also closes the modal
+		modalBackdrop.addEventListener('click', hideModal);
 	}
 
 	// Safeguard for Navbar Hamburger Menu Interaction
@@ -373,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	var navbarMenu = document.querySelector('.navbar ul');
 
 	if (menuIcon && navbarMenu) {
-		menuIcon.addEventListener('click', function() {
+		menuIcon.addEventListener('click', function () {
 			navbarMenu.classList.toggle('active');
 		});
 	} else {

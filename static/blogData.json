@@ -1,44 +1,9 @@
 [
   {
-    "title": "Jane Doe",
+    "title": "First Post!",
     "desc": "Welcome to the club!",
     "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgI7WcLm5kTxlOGWinIECSKgj9SZ0LjCeb4Q&s",
     "alt": "a doe named jane doe",
-    "date": "2024-12-10T20:00:51.150Z"
-  },
-  {
-    "title": "H4Ck3r",
-    "desc": "Attending BSides through WiCys was a great way to listen to people talk about cybersecurity projects they have been working on and unveil projects that have previously been confidential.  It was my first time attending a cybersecurity conference and it has influenced me to continue looking for similar opportunities in the future.  WiCys also provided an AirBnb for the club to stay at, which was a great way for me to get to know other members in the club.  I definitely felt closer to those members from fostering a relationship there durign teh conference days.",
-    "url": "https://drgecko.xyz/src/images/wicys/bsides.jpg",
-    "alt": "a deer named john doe",
-    "date": "2024-12-10T20:00:51.150Z"
-  },
-  {
-    "title": "jesus",
-    "desc": "this is jesus",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Spas_vsederzhitel_sinay_%28cropped1%29.jpg/1200px-Spas_vsederzhitel_sinay_%28cropped1%29.jpg",
-    "alt": "jesus",
-    "date": "2024-12-10T20:00:51.150Z"
-  },
-  {
-    "title": "Benny Beaver",
-    "desc": "I participated with WiCys in the National Cyber League and I found it gave me a chance to learn different tools used in the cybersecurity world.  At the beginning, they taught me how to use each tool step by step, then I got to participate in an individual and team competition using the skills that I had learned.  Thank you WiCys for telling me about that competition!",
-    "url": "https://irp.cdn-website.com/7b3704de/dms3rep/multi/IMG_7210-d06fedb1.JPG",
-    "alt": "Baby beaver",
-    "date": "2024-12-10T20:00:51.150Z"
-  },
-  {
-    "title": "CyberForce Champion!",
-    "desc": "Interacting on the WiCys Discord kept me updated on upcoming security competitions that I was eligible to participate in, like CyberForce.  During the weekend of CyberForce, I was able to talk to people from different National Labs and the opportunities they offer there, if I were to go down the research path.  I really liked playing their Reign 4.0 demo game, which got me using  cryptology and looking up useful Linux commands to progress through each room!",
-    "url": "https://yt3.googleusercontent.com/3ii6B3M1tRqzLQZlnXWgw75gVHisaLvfNqh6G-gqVoIictJo965fGF_lnPfT9_vfW8NgjQyU=s900-c-k-c0x00ffffff-no-rj",
-    "alt": "CyberForce",
-    "date": "2024-12-10T20:00:51.150Z"
-  },
-  {
-    "title": "Anonymous",
-    "desc": "I think that WiCys creates a safe space to get introduced to the field of security because I got to make close friends with the members I met during the meetings.  WiCys had a few collaborations with the Security Club (OSUSEC) and I was slowly able to know members from both clubs.  I was also able to feel more confident and comfortable to going club events!",
-    "url": "https://preview.redd.it/tz258u61u3b21.jpg?auto=webp&s=b7a82b3c98e8d426e3b9c18b29ea6bf59a01a0b7",
-    "alt": "An image of WiCyS Club Activities!",
     "date": "2024-12-10T20:00:51.150Z"
   }
 ]

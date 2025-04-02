@@ -99,7 +99,7 @@ p {
     border-radius: 3px;
 }
 
-#filter-update-button-container {
+#filter-reset-button-container {
     display: flex;
     justify-content: center;
 }

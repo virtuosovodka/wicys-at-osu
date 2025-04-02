@@ -67,13 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		filterImageSelect.addEventListener('change', doFilterUpdate);
 	}
 
-	if (filterUpdateButton) {
-		console.log("Filter button found:", filterUpdateButton);
-		filterUpdateButton.addEventListener('click', doFilterUpdate);
-	} else {
-		console.log("Filter button not found");
-	}
-
 	function clearFiltersAndShowAllPosts() {
 		// Clear all filter inputs
 		if (filterTextInput) filterTextInput.value = "";

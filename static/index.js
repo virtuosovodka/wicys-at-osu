@@ -1,24 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
-	// JS for Slides
-	const slides = document.querySelectorAll('.slide');
-	const nextSlideButton = document.querySelector('.next-slide');
-	const prevSlideButton = document.querySelector('.prev-slide');
+	// JS for Slides - https://www.w3schools.com/howto/howto_js_slideshow.asp
+	window.onload = function() {
+		slideIndex = 0;
+		showSlides();
+	};
 
-	if (slides.length > 0 && nextSlideButton && prevSlideButton) {
-		let currentSlide = 0;
+	document.querySelector(".prev").addEventListener("click", () => plusSlides(-1));
+	document.querySelector(".next").addEventListener("click", () => plusSlides(1));
 
-		nextSlideButton.addEventListener('click', () => {
-			slides[currentSlide].classList.remove('active');
-			currentSlide = (currentSlide + 1) % slides.length;
-			slides[currentSlide].classList.add('active');
-		});
-
-		prevSlideButton.addEventListener('click', () => {
-			slides[currentSlide].classList.remove('active');
-			currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-			slides[currentSlide].classList.add('active');
-		});
+	// Next/previous controls
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
 	}
+
+	// Thumbnail image controls
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	// automatically scroll through the slides
+	function showSlides() {
+		let i;
+		let slides = document.getElementsByClassName("slides");
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slideIndex++;
+		if (slideIndex > slides.length) {slideIndex = 1}
+		slides[slideIndex-1].style.display = "block";
+		setTimeout(showSlides, 8000); // Change image every 8 seconds
+	} 
 
 	// for invite link
 	if (window.location.pathname == "/contact.html") {
@@ -349,6 +360,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	} else {
 		console.error("Navbar menu or menu icon not found. Ensure the correct class names are applied.");
 	}
+
+	// 
 
 })
 

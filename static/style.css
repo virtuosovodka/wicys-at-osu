@@ -1,6 +1,6 @@
 /* Base Styling */
 html, body {
-    background-color: #D9D9D9; /* Light gray background for the page */
+    background-color: rgb(236, 236, 236); /* Light gray background for the page */
     font-family: "Work Sans", sans-serif;
     color: #0E0E2C;
     margin: 0;
@@ -287,94 +287,88 @@ p {
     border-radius: 5px;
 }
 
+/* SLIDESHOW CSS */
+* {box-sizing:border-box}
+
 /* Slideshow container */
 .slideshow-container {
-    position: relative;
-    padding: 20px;
-    background-color: #AAAAAA; /* Dark gray background for the slideshow */
-    border-radius: 10px;
-    margin: 20px auto 60px; /* Leaves space for buttons */
-    max-width: 800px;
+  max-width: 1000px;
+  position: relative;
+  margin: 30px;
+  max-height: 50vh;
+  background-color:rgba(0, 0, 0, 0.196);
+  border-radius: 5px;
 }
 
-/* Slideshow */
-.slide {
-    display: none;
-    flex-direction: column;
-    align-items: flex-start; /* Left-align content */
-    gap: 20px;
-    padding: 20px;
-    background-color: #AAAAAA; /* Dark gray background for the slide */
-    color: #000000; /* Black text for content */
-    border-radius: 10px;
+.slide-pic {
+    max-height: 50vh;
+    display: block;
+    margin: auto;
 }
 
-.slide.active {
-    display: flex;
+/* Hide the images by default */
+.slides {
+  display: none;
+  width: 800px;
 }
 
-/* Slide content */
-.slide-content {
-    display: flex;
-    flex-direction: row; /* Row layout for image and text */
-    align-items: flex-start; /* Align items at the top */
-    gap: 20px;
-    width: 100%;
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
 }
 
-.slide-content div {
-    text-align: left; /* Left-align text */
-    flex-grow: 1; /* Allow text area to expand */
-    flex-basis: 60%; /* Text area takes 60% of the slide width */
-    max-width: 60%; /* Ensures text area doesn't grow too wide */
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
 }
 
-.slide-content p {
-    margin: 10px 0;
-    line-height: 1.6; /* Better spacing for paragraphs */
-    color: #000000; /* Ensure black text */
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
 }
 
-.slide-content img {
-    flex-basis: 40%; /* Image takes up 40% of the slide width */
-    max-width: 40%; /* Ensures image doesn't grow too wide */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 5px; /* Small rounding for a clean look */
-    object-fit: cover; /* Ensures image fills its area without distortion */
+/* Caption text */
+.slides-text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
 }
 
-/* Navigation buttons */
-.slideshow-navigation {
-    position: absolute;
-    bottom: -40px; /* Moves buttons outside the container */
-    left: 50%;
-    transform: translateX(-50%); /* Centers buttons horizontally */
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 
-.slideshow-navigation button {
-    background-color: #444444; /* Slightly lighter gray for buttons */
-    color: white;
-    border: none;
-    padding: 8px 8px; /* makes buttons look slightly less stretched */
-    cursor: pointer;
-    border-radius: 100%;
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }
-
-.slideshow-navigation button:hover {
-    background-color: #555555;
-}
-
+/*  */
 /* Navbar */
-ul {
+.navbar-links-container {
     list-style-type: none;
     margin: 0;
     padding: 0;
     width: 100%;
     overflow: hidden;
-    background-color: #A6A9A9;
+    background-color: rgb(236, 236, 236);
     display: flex;
     align-items: center; /* Center align items vertically */
     justify-content: space-between; /* Space between logo and menu items */
@@ -399,16 +393,41 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
     padding: 16px 8px; /* Adjust padding to bring items closer */
     text-decoration: none;
+    transition: 0.2s ease color;
 }
 
 li a:hover {
-    background-color: #6A6A6A;
-    height: 100%;
+    color: rgb(122, 38, 150);
 }
+
+/* Hover underline CSS - https://www.30secondsofcode.org/css/s/hover-underline-animation/ */
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+}
+
+.hover-underline-animation::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(122, 38, 150);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.hover-underline-animation:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
 
 /* Ensure menu items are close together and on the right */
 ul {
@@ -471,12 +490,11 @@ ul .navbar-items {
     }
 }
 
-
 /* footer */
 footer {
     margin-top: 50px;
     text-align: center;
-    background-color: #A6A9A9;
+    background-color: rgb(236, 236, 236);
     width: 100%;
 }
 
@@ -583,20 +601,12 @@ input[type=text], select, textarea {
     border-radius: 5px;
     background: #ECEAEB;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: 0.2s ease color;
 }
 
 .buttons:hover {
     background: #9B7B9C;
     color: #FFFFFF;
 }
-input[type=submit]:hover {
-    background: #9B7B9C;
-    color: #FFFFFF;
-}
-input::file-selector-button:hover {
-    background: #9B7B9C;
-    color: #FFFFFF;
-}
-
 
 

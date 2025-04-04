@@ -23,28 +23,6 @@ app.set("view engine", "handlebars");
 
 app.use(express.static(path.join(__dirname, 'static')));
 
-// Server endpoint for receiving new blog info
-app.post('/blog/addPost', function(req, res, next) {
-    // Add new blog data to the array
-    blogData.push({
-        name: req.body.name,
-        desc: req.body.desc,
-        url: req.body.url,
-        alt: req.body.alt,
-        date: req.body.date
-    });
-
-    // Write updated blog data back to the file
-    fs.writeFile(filePath, JSON.stringify(blogData, null, 2), function(err) {
-        if (err) {
-            console.error("Error writing to file:", err);
-            return res.status(500).json({ message: "Server error. Try again soon." });
-        } else {
-            return res.status(200).json({ message: "Blog Post saved successfully!" });
-        }
-    });
-});
-
 // Display Home page
 app.get('', function (req, res, next) {
     var context = {
@@ -52,14 +30,6 @@ app.get('', function (req, res, next) {
         slides: slidesData
     };
     res.status(200).render("homePage", context);
-});
-
-// Handlebars helper to add class to the first slide
-Handlebars.registerHelper('addClassToFirst', function(index, options) {
-    if (index === 0) {
-        return options.fn(this); // Apply the block to the first element
-    }
-    return ''; // Return nothing for other elements
 });
 
 // Display Events page

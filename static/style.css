@@ -643,90 +643,57 @@ footer img {
     padding-top: 5px;
 }
 
-/* Input Styling */
-.formContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 5px;
-    padding: 5px;
-    align-items: center;
-    justify-content: center;
-}
-
-.formInputContainer {
-    display: flex;
-    width: 100%;
-    /* Changed the width to be more dynamic */
-    margin: 20px 0;
-    /* align-items: center; */
-    justify-content: center;
-}
-
-.centerForm {
-    display: flex;
-    align-content: center;
-}
-
-.formDiv {
-    display: inline-flex;
-    background-color: #AAAAAA;
-    border-radius: 10px;
-    padding-bottom: 20px;
-    padding-right: 30px;
-    padding-left: 5%;
-    margin: auto;
-}
-
-.adjustWidth {
-    width: 20% !important;
-}
-
-.formInput {
-    width: 60%;
-    margin-left: 10px;
-    padding: 3px;
-    border: 1px solid #dadada;
-    border-radius: 3px;
-}
-
-#blogInput {
-    resize: none;
-    width: 80%;
-}
-
-#contactInput {
-    resize: none;
-    width: 80%;
-}
-
 input[type=text],
 select,
 textarea {
     width: 80%;
 }
 
-.formInputElement {
-    margin: 0 5px;
-    flex: 1 1 100%;
+/* Events Page Styling */
+#events-page h1 {
+    color: #181414;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
 }
 
-.formInputLabel {
-    width: 40%;
+#events-page h2 {
+    font-size: 1.3rem;
+    color: #6b2d7e;
+    margin-bottom: 2rem;
 }
 
-#submitButtonContainer {
-    display: flex;
-    justify-content: center;
+.calendar-container {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
 }
 
-#updateButtonContainer {
-    display: flex;
-    justify-content: center;
+#events-page iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
 }
 
-#contactButtonContainer {
-    display: flex;
-    justify-content: center;
+@media screen and (max-width: 768px) {
+    .contentContainer {
+        padding: 1rem;
+    }
+    
+    #events-page h1 {
+        font-size: 2rem;
+    }
+    
+    #events-page h2 {
+        font-size: 1.1rem;
+    }
+    
+    #events-page iframe {
+        height: 450px;
+    }
 }
 
 /* Buttons Styling */

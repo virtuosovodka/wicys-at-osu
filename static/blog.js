@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		// Get the title from h2 element
-		var titleElem = postElem.querySelector('.blog-text h2');
+		var titleElem = postElem.querySelector('.blog-content h3');
 		if (titleElem) {
 			post.name = titleElem.textContent.trim();
 		} else {

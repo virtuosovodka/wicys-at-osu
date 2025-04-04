@@ -1,73 +1,72 @@
 <main>
     <script src="./blog.js" charset="utf-8" defer></script>
-    <div class="blog-all-content">
-        <div id="blog-filter-container">
-            <h2>Filters</h2>
-
-            <div class="filter-input-container">
-                <label for="filter-text" class="filter-input-label">Text</label>
-                <div class="filter-input-element">
-                    <input type="text" id="filter-text" class="filter-input">
-                </div>
-            </div>
-
-            <div class="filter-input-container">
-                <label for="filter-start" class="filter-input-label">Start Date</label>
-                <div class="filter-input-element">
-                    <input type="date" id="filter-start" class="filter-input">
-                </div>
-            </div>
-
-            <div class="filter-input-container">
-                <label for="filter-end" class="filter-input-label">End Date</label>
-                <div class="filter-input-element">
-                    <input type="date" id="filter-end" class="filter-input">
-                </div>
-            </div>
-
-            <div class="filter-input-container">
-                <label for="filter-include-image" class="filter-input-label">Include Image</label>
-                <div class="filter-input-element">
-                    <select id="filter-image" class="filter-input" name="filter-image">
-                        <option selected value="Both">Both</option>
-                        <option  value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                </div>
-            </div>
-
-            <div id="filter-reset-button-container">
-                <button id="filter-reset-button" type="button" class="buttons">Reset</button>
-            </div>
-
+    <div class="blog-page-container">
+        <div class="blog-header">
+            <h1>WiCyS @ OSU Blog</h1>
+            <p class="blog-subtitle">Latest updates, events, and cybersecurity insights from our community</p>
         </div>
 
-        <div id="blog-column">
-            <div class="blog-header">
-                <h1>WiCyS @ OSU Blog</h1>
+        <div class="blog-content-wrapper">
+            <!-- Filters Sidebar -->
+            <div class="blog-sidebar">
+                <div class="filter-card">
+                    <h2 class="filter-title">Filters</h2>
+                    
+                    <div class="filter-group">
+                        <label for="filter-text">Search Posts</label>
+                        <input type="text" id="filter-text" class="filter-input" placeholder="Enter keywords...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-start">From Date</label>
+                        <input type="date" id="filter-start" class="filter-input">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-end">To Date</label>
+                        <input type="date" id="filter-end" class="filter-input">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-image">Include Image</label>
+                        <select id="filter-image" class="filter-input" name="filter-image">
+                            <option selected value="Both">All Posts</option>
+                            <option value="Yes">With Images</option>
+                            <option value="No">Text Only</option>
+                        </select>
+                    </div>
+                    
+                    <button id="filter-reset-button" type="button" class="filter-reset-button">Reset Filters</button>
+                </div>
             </div>
-
-            <div id="blog-flex">
-                {{#each blogData}}
-                    {{> singlePost}}
-                {{/each}}
+            
+            <!-- Blog Posts Grid -->
+            <div class="blog-grid-container">
+                <div id="blog-flex" class="blog-grid">
+                    {{#each blogData}}
+                        {{> singlePost}}
+                    {{/each}}
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Modal for reading full post -->
     <div id="modal-backdrop" class="hidden"></div>
-    <div id="read-more-modal" class="contentContainer hidden">
+    <div id="read-more-modal" class="hidden">
         <div class="modal-dialog">
             <div class="modal-header">
-                <h3 id="modal-title">someTitle</h3>
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3 id="modal-title">Post Title</h3>
+                <button type="button" id="modal-close" class="modal-close-button">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="blog-desc-container">
-                    <p id="modal-desc" class="blog-desc-full">someDesc</p>
-                </div>
-                <div class="blog-img-container" id="modal-img-container">
-                    <img src="/images/someUrl" alt="someAlt" id="modal-img">
+                <div class="modal-content">
+                    <div class="blog-img-container" id="modal-img-container">
+                        <img src="/images/placeholder.jpg" alt="Post image" id="modal-img">
+                    </div>
+                    <div class="blog-content-container">
+                        <p id="modal-desc" class="blog-desc-full">Post content will appear here.</p>
+                    </div>
                 </div>
             </div>
         </div>

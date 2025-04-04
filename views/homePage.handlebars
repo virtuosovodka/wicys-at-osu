@@ -1,8 +1,16 @@
+<!-- homePage.handlebars -->
+<div class="homePageContent">  
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">WiCyS @ Oregon State University</h1>
+            <p class="hero-subtitle">Empowering women in cybersecurity through community, education, and opportunity</p>
+            <a href="/contact" class="cta-button">Join Our Community</a>
+        </div>
+    </div>
 
-<div class="homePageContent contentContainer">  
     <!-- Slideshow container -->
     <div class="slideshow-container">
-        {{!-- slides from slideshow.handlebars --}}
         {{#each slides}}
             {{> slideshow}}
         {{/each}}
@@ -10,23 +18,60 @@
         <a class="prev">&#10094;</a>
         <a class="next">&#10095;</a>
     </div>
-    <br>
     
-    <h1>
-        About WiCyS @ Oregon State University
-    </h1>
-    <p>
-        Our mission is to help build a diverse cybersecurity workforce by facilitating the recruitment, retention, and
-        advancement of women in cybersecurity. However, this club is not exclusive to women or those identify as women, we
-        accept all allies!
-    </p>
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="section-container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Our mission is to help build a diverse cybersecurity workforce by facilitating the recruitment, retention, and
+                        advancement of women in cybersecurity. However, this club is not exclusive to women or those who identify as women, we
+                        accept all allies!
+                    </p>
+                </div>
+                <div class="about-cards">
+                    <div class="info-card">
+                        <div class="card-icon">👩‍💻</div>
+                        <h3>Community</h3>
+                        <p>Connect with like-minded individuals passionate about cybersecurity</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>Learning</h3>
+                        <p>Access workshops, training, and mentorship opportunities</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">🚀</div>
+                        <h3>Growth</h3>
+                        <p>Develop professional skills and advance your career in cybersecurity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <h1>
-        Blog
-    </h1>
-    <p>
-        {{firstPost}}
-    </p>
-    <a href="/blog">See more Blog Posts!</a>
+    <!-- Blog Preview Section -->
+    <section class="blog-preview-section">
+        <div class="section-container">
+            <h2 class="section-title">Latest From Our Blog</h2>
+            <div class="blog-preview-card">
+                <p>{{firstPost}}</p>
+                <a href="/blog" class="blog-link">See more blog posts <span class="arrow">→</span></a>
+            </div>
+        </div>
+    </section>
 
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2>Ready to join our community?</h2>
+            <p>Connect with us on Discord, Instagram, or attend our next event!</p>
+            <div class="cta-buttons">
+                <a href="https://discord.gg/PUv3Cz9PzK" class="social-button discord">Join Discord</a>
+                <a href="/events" class="social-button events">Upcoming Events</a>
+            </div>
+        </div>
+    </section>
 </div>

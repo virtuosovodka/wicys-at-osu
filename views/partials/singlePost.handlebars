@@ -1,31 +1,16 @@
-
-{{#if url}}
-<div class="blog-post">
-    <div class="blog-content">
-        <div class="blog-text-col">
-            <div class="blog-text">
-                <h2>{{title}}</h2>
-                <p class="blog-desc">{{desc}}</p>
-            </div>
-            <button type="button" class="readMore buttons" data-date="{{date}}" >Read More</button>
-        </div>
-        <div class="blog-pic">
-            <img src="{{url}}" alt="{{alt}}">
-        </div>
+<article class="blog-post">
+    {{#if photoURL}}
+    <div class="blog-pic">
+        <img src="/images/{{photoURL}}" alt="{{photoAlt}}">
     </div>
-</div>
-{{else}}
-<div class="blog-post">
-    <div class="blog-content column">
-        <div class="testimony-text">
-            <h2>{{title}}</h2>
-            <p class="blog-desc">{{desc}}</p>
-        </div>
-        <button type="button" class="readMore buttons" data-date="{{date}}">Read More</button>
+    {{/if}}
+    
+    <div class="blog-content {{#unless photoURL}}no-image{{/unless}}">
+        <h3>{{title}}</h3>
+        <div class="blog-date">{{date}}</div>
+        <p class="blog-desc">{{description}}</p>
+        <button type="button" class="readMore" data-title="{{title}}" data-description="{{description}}" data-photo="{{photoURL}}" data-alt="{{photoAlt}}">
+            Read More
+        </button>
     </div>
-</div>
-{{/if}}
-
-
-
-
+</article>

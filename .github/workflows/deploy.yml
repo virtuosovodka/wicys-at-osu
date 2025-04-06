@@ -5,22 +5,24 @@ on:
     branches:
       - main
 
-    jobs:
-      deploy:
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
+jobs:
+  deploy:
+    name: Deploy to Lightsail Instance
+    runs-on: ubuntu-latest
 
-          - name: SSH into server and deploy
-            uses: appleboy/ssh-action@v0.1.6
-            with:
-              host: ${{ secrets.SSH_HOST }}
-              username: bitnami
-              key: ${{ secrets.SSH_PRIVATE_KEY }}
-              script: |
-                cd /wicys-at-osu
-                git pull origin main
-                npm install
-                pm2 restart app.js
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: bitnami
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /wicys-at-osu
+            git pull origin main
+            npm install
+            pm2 restart app.js
 

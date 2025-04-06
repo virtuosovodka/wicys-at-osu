@@ -1,24 +1,9 @@
 [
   {
     "title": "First Post!",
-    "desc": "Welcome to the club!",
-    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgI7WcLm5kTxlOGWinIECSKgj9SZ0LjCeb4Q&s",
-    "alt": "a doe named jane doe",
-    "date": "2024-12-10T20:00:51.150Z"
-  },
-  {
-    "title": "Second Post!",
-    "desc": "Welcome to the club!",
-    "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgI7WcLm5kTxlOGWinIECSKgj9SZ0LjCeb4Q&s",
-    "alt": "a doe named jane doe",
-    "date": "2024-12-10T20:00:51.150Z"
-  }
-  ,
-  {
-    "title": "Third Post!",
-    "desc": "hiii!",
-    "url": "",
-    "alt": "a doe named jane doe",
+    "desc": "Welcome to the club! More blog posts will be coming in the near future.",
+    "url": "./images/WiCyS_Oregon_State_University_Student_Chapter_Logo.png",
+    "alt": "WiCyS @ OSU Student Chapter Logo",
     "date": "2024-12-10T20:00:51.150Z"
   }
 ]

@@ -22,7 +22,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/bitnami/wicys-at-osu
-            git pull origin main
+            git pull https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/jamie-dang-n/wicys-at-osu.git main
             npm install
             pm2 restart server.js
 

@@ -21,7 +21,7 @@ jobs:
           username: bitnami
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /wicys-at-osu
+            cd /home/bitnami/wicys-at-osu
             git pull origin main
             npm install
             pm2 restart server.js

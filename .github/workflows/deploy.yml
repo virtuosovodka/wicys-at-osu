@@ -1,29 +1,27 @@
 name: Deploy to Lightsail
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     name: Deploy to Lightsail Instance
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: SSH into server and deploy
-        uses: appleboy/ssh-action@v1.0.0
+      
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.8.0
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: bitnami
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd /home/bitnami/wicys-at-osu
-            git pull https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/jamie-dang-n/wicys-at-osu.git main
-            npm install
-            pm2 restart server.js
-
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Add host key to known hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: Deploy to server
+        run: |
+          ssh bitnami@${{ secrets.SSH_HOST }} "cd /home/bitnami/wicys-at-osu && \
+          git pull https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/jamie-dang-n/wicys-at-osu.git main && \
+          npm install && \
+          pm2 restart server.js"

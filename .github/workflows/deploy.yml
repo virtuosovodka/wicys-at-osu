@@ -20,6 +20,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: bitnami
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
           script: |
             cd /home/bitnami/wicys-at-osu
             git pull https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/jamie-dang-n/wicys-at-osu.git main

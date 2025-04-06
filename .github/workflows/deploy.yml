@@ -16,7 +16,7 @@ on:
             uses: appleboy/ssh-action@v0.1.6
             with:
               host: ${{ secrets.SSH_HOST }}
-              username: ubuntu
+              username: bitnami
               key: ${{ secrets.SSH_PRIVATE_KEY }}
               script: |
                 cd /wicys-at-osu

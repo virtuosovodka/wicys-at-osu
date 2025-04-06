@@ -1,112 +1,26 @@
-name: Deploy to AWS Lightsail
+name: Deploy to Lightsail
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:  # Allows manual triggering
+    branches:
+      - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    jobs:
+      deploy:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Set up SSH key
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to Lightsail
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-        run: |
-          # Create a deployment package
-          tar -czf deployment.tar.gz --exclude=".git" --exclude="node_modules" .
-          
-          # Transfer files to server
-          scp -o StrictHostKeyChecking=no deployment.tar.gz $SSH_USER@$SSH_HOST:/tmp/
-          
-          # Execute deployment commands on server
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST << 'EOF'
-            # Backup current deployment
-            timestamp=$(date +%Y%m%d%H%M%S)
-            mkdir -p ~/backups
-            if [ -d ~/htdocs/wicys-at-osu.github.io ]; then
-              cp -r ~/htdocs/wicys-at-osu.github.io ~/backups/wicys-site_$timestamp
-            fi
-            
-            # Ensure the target directory exists
-            mkdir -p ~/htdocs
-            
-            # Get the PM2 app name before we remove the directory
-            pm2_app_name=$(cd ~/htdocs/wicys-at-osu.github.io && pm2 list --no-color | grep -o "wicys-[^ ]*" || echo "")
-            if [ -z "$pm2_app_name" ]; then
-              # Fallback to any app that might be running from this directory
-              pm2_app_name=$(pm2 list --no-color | grep ~/htdocs/wicys-at-osu.github.io | awk '{print $2}' || echo "")
-            fi
-            
-            # Clear old files
-            if [ -d ~/htdocs/wicys-at-osu.github.io ]; then
-              rm -rf ~/htdocs/wicys-at-osu.github.io
-            fi
-            
-            # Create fresh directory
-            mkdir -p ~/htdocs/wicys-at-osu.github.io
-            
-            # Deploy new code
-            tar -xzf /tmp/deployment.tar.gz -C ~/htdocs/wicys-at-osu.github.io
-            cd ~/htdocs/wicys-at-osu.github.io
-            
-            # Install dependencies
-            npm ci --production
-            
-            # Build the project if a build script exists
-            if grep -q '"build"' package.json; then
-              echo "Build script found, running npm run build"
-              npm run build
-            else
-              echo "No build script found, skipping build step"
-            fi
-            
-            # Set permissions
-            chmod -R 755 ~/htdocs/wicys-at-osu.github.io
-            
-            # Restart the PM2 process if we found the app name
-            if [ -n "$pm2_app_name" ]; then
-              echo "Restarting PM2 app: $pm2_app_name"
-              pm2 reload $pm2_app_name || pm2 restart $pm2_app_name || echo "Could not restart with app name"
-            else
-              # If we couldn't determine the app name, try starting/restarting based on package.json
-              echo "No existing PM2 app found, checking package.json for start script"
-              if grep -q '"start"' package.json; then
-                app_name="wicys-website"
-                pm2_id=$(pm2 id $app_name 2>/dev/null || echo "")
-                
-                if [ -n "$pm2_id" ] && [ "$pm2_id" != "[]" ]; then
-                  echo "Restarting existing PM2 process: $app_name"
-                  pm2 reload $app_name || pm2 restart $app_name
-                else
-                  echo "Starting new PM2 process: $app_name"
-                  pm2 start npm --name $app_name -- start
-                fi
-              else
-                echo "No start script found in package.json. If this is a static site, no PM2 needed."
-              fi
-            fi
-            
-            # Clean up
-            rm /tmp/deployment.tar.gz
-            
-            echo "Deployment completed successfully!"
-          EOF
+          - name: SSH into server and deploy
+            uses: appleboy/ssh-action@v0.1.6
+            with:
+              host: ${{ secrets.SSH_HOST }}
+              username: ubuntu
+              key: ${{ secrets.SSH_PRIVATE_KEY }}
+              script: |
+                cd /home/ubuntu/women-in-cybersecurity
+                git pull origin master
+                npm install
+                pm2 restart app.js
 

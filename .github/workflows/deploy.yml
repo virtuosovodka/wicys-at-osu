@@ -3,7 +3,7 @@ name: Deploy to Lightsail
 on:
   push:
     branches:
-      - master
+      - main
 
     jobs:
       deploy:
@@ -19,8 +19,8 @@ on:
               username: ubuntu
               key: ${{ secrets.SSH_PRIVATE_KEY }}
               script: |
-                cd /home/ubuntu/women-in-cybersecurity
-                git pull origin master
+                cd /wicys-at-osu
+                git pull origin main
                 npm install
                 pm2 restart app.js
 

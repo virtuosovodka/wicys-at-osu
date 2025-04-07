@@ -1,19 +1,15 @@
 name: Deploy to Lightsail
-
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
     name: Deploy to Lightsail Instance
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: SSH into server and deploy
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -26,4 +22,3 @@ jobs:
             git pull https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/jamie-dang-n/wicys-at-osu.git main
             npm install
             pm2 restart server.js
-

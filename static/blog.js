@@ -65,81 +65,70 @@ document.addEventListener('DOMContentLoaded', function() {
 	 */
 	function postPassesFilters(post, filters) {
 		console.log("Checking post against filters:", post.name);
-
-		// Text filter check - now using includes() for partial string matching
+	
+		// Text filter check
 		var passesText = true;
 		if (filters.text) {
 			var postName = (post.name || '').toLowerCase();
 			var postDesc = (post.desc || '').toLowerCase();
 			var filterText = filters.text.toLowerCase();
-
-			// Use includes() for partial string matching
+	
 			if (!postName.includes(filterText) && !postDesc.includes(filterText)) {
 				console.log("Post doesn't pass text filter");
 				passesText = false;
-			} else {
-				console.log("Post passes text filter");
 			}
 		}
-
+	
 		// Start date filter check
 		var passesStart = true;
-		if (filters.startDate && !isNaN(filters.startDate.getTime())) {
+		if (filters.startDate) {
 			// Ensure post date is valid
 			var postDate = post.date instanceof Date ? post.date : new Date(post.date);
-
+			
 			if (isNaN(postDate.getTime())) {
 				console.log("Post has invalid date");
 				passesStart = false;
 			} else if (postDate < filters.startDate) {
 				console.log("Post doesn't pass start date filter");
 				passesStart = false;
-			} else {
-				console.log("Post passes start date filter");
 			}
 		}
-
+	
 		// End date filter check
 		var passesEnd = true;
-		if (filters.endDate && !isNaN(filters.endDate.getTime())) {
+		if (filters.endDate) {
 			// Ensure post date is valid
 			var postDate = post.date instanceof Date ? post.date : new Date(post.date);
 			var filterEndDate = new Date(filters.endDate);
 			// Set end date to end of day
 			filterEndDate.setHours(23, 59, 59, 999);
-
+	
 			if (isNaN(postDate.getTime())) {
 				console.log("Post has invalid date");
 				passesEnd = false;
 			} else if (postDate > filterEndDate) {
 				console.log("Post doesn't pass end date filter");
 				passesEnd = false;
-			} else {
-				console.log("Post passes end date filter");
 			}
 		}
-
+	
 		// Image filter check
 		var passesImage = true;
 		if (filters.includeImage !== "Both") {
 			var hasImage = !!post.url;
-
+	
 			if (filters.includeImage === "Yes" && !hasImage) {
-				console.log("Post doesn't pass image=Yes filter");
 				passesImage = false;
 			} else if (filters.includeImage === "No" && hasImage) {
-				console.log("Post doesn't pass image=No filter");
 				passesImage = false;
-			} else {
-				console.log("Post passes image filter");
 			}
 		}
-
+	
 		var passes = passesText && passesStart && passesEnd && passesImage;
 		console.log(`Post "${post.name}" overall filter result: ${passes ? "PASS" : "FAIL"}`);
 		return passes;
 	}
-
+	
 	/*
 	 * Applies the filters currently entered by the user to the set of all posts.
 	 * Any post that satisfies the user's filter values will be displayed,
@@ -149,59 +138,67 @@ document.addEventListener('DOMContentLoaded', function() {
 	 */
 	function doFilterUpdate() {
 		console.log("Applying filters to posts");
-
+	
 		// Check if all filters are empty - if so, show all posts
 		var isTextEmpty = !filterTextInput || filterTextInput.value.trim() === "";
 		var isStartEmpty = !filterStartInput || filterStartInput.value === "";
 		var isEndEmpty = !filterEndInput || filterEndInput.value === "";
 		var isImageDefault = !filterImageSelect || filterImageSelect.value === "Both";
-
+	
 		if (isTextEmpty && isStartEmpty && isEndEmpty && isImageDefault) {
 			console.log("All filters are empty, showing all posts");
 			clearFiltersAndShowAllPosts();
 			return;
 		}
-
+	
 		/*
 		 * Grab values of filters from user inputs.
 		 */
 		var filters = {
 			text: filterTextInput ? filterTextInput.value.trim() : "",
-			startDate: filterStartInput ? new Date(filterStartInput.value) : new Date(0),
-			endDate: filterEndInput ? new Date(filterEndInput.value) : new Date(0),
+			startDate: filterStartInput && filterStartInput.value ? new Date(filterStartInput.value) : null,
+			endDate: filterEndInput && filterEndInput.value ? new Date(filterEndInput.value) : null,
 			includeImage: filterImageSelect ? filterImageSelect.value : "Both"
 		};
-
+	
+		// Validate date objects
+		if (filters.startDate && isNaN(filters.startDate.getTime())) {
+			console.warn("Invalid start date entered");
+			filters.startDate = null;
+		}
+		
+		if (filters.endDate && isNaN(filters.endDate.getTime())) {
+			console.warn("Invalid end date entered");
+			filters.endDate = null;
+		}
+	
 		console.log("Filter values:", {
 			text: filters.text,
-			startDate: filterStartInput ? filterStartInput.value : "",
-			endDate: filterEndInput ? filterEndInput.value : "",
+			startDate: filters.startDate ? filters.startDate.toISOString().split('T')[0] : "none",
+			endDate: filters.endDate ? filters.endDate.toISOString().split('T')[0] : "none",
 			includeImage: filters.includeImage
 		});
-
+	
 		// Reset all post visibilities first
 		var postContainer = document.getElementById('blog-flex');
 		if (!postContainer) {
 			console.error("Blog container not found!");
 			return;
 		}
-
+	
 		var postChildren = postContainer.children;
-
-		// Reset all posts to visible
-		for (var j = 0; j < postChildren.length; j++) {
-			postChildren[j].classList.remove('hidden');
-		}
-
-		// Hide posts that don't pass the filters
+	
+		// Apply filters to each post
 		for (var i = 0; i < allPosts.length; i++) {
-			if (!postPassesFilters(allPosts[i], filters)) {
-				if (i < postChildren.length) {
+			if (i < postChildren.length) {
+				if (postPassesFilters(allPosts[i], filters)) {
+					postChildren[i].classList.remove('hidden');
+				} else {
 					postChildren[i].classList.add('hidden');
 				}
 			}
 		}
-
+	
 		console.log("Filter application complete");
 	}
 
@@ -241,19 +238,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		// Get the date - look for a data-date attribute at various levels
 		var dateElem = postElem.querySelector('[data-date]') || postElem;
 		var dateStr = dateElem.getAttribute('data-date');
-
-		if (dateStr) {
+		
+		if (dateStr && dateStr.trim() !== '') {
+			// Try to parse the date
 			post.date = new Date(dateStr);
-			// If date parsing failed, set to a default date
+			
+			// If date parsing failed, log warning and set to current date
 			if (isNaN(post.date.getTime())) {
-				console.warn("Invalid date found:", dateStr);
+				console.warn("Invalid date format found:", dateStr);
+				console.warn("Make sure dates are in YYYY-MM-DD format");
 				post.date = new Date(); // Fallback to current date
 			}
 		} else {
 			console.warn("No date attribute found for post:", post.name);
 			post.date = new Date(); // Default to current date
 		}
-
+	
 		console.log("Parsed post:", post);
 		return post;
 	}

@@ -19,6 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
 	var resetButton = document.getElementById('filter-reset-button');
 	resetButton.addEventListener('click', clearFiltersAndShowAllPosts);
 
+	// Function to validate date ranges
+	function validateDateRange() {
+		// Only validate if both dates are filled in
+		if (filterStartInput && filterStartInput.value && filterEndInput && filterEndInput.value) {
+			var startDate = new Date(filterStartInput.value);
+			var endDate = new Date(filterEndInput.value);
+			
+			// Check if both dates are valid
+			if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime())) {
+				// Check if end date is earlier than start date
+				if (endDate < startDate) {
+					alert("End date cannot be earlier than start date");
+					// Reset the end date
+					filterEndInput.value = "";
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	// Add input event listeners to automatically update filters when inputs change
 	if (filterTextInput) {
 		filterTextInput.addEventListener('input', function () {
@@ -29,11 +50,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	if (filterStartInput) {
-		filterStartInput.addEventListener('change', doFilterUpdate);
+		filterStartInput.addEventListener('change', function() {
+			if (validateDateRange()) {
+				doFilterUpdate();
+			}
+		});
 	}
 
 	if (filterEndInput) {
-		filterEndInput.addEventListener('change', doFilterUpdate);
+		filterEndInput.addEventListener('change', function() {
+			if (validateDateRange()) {
+				doFilterUpdate();
+			}
+		});
 	}
 
 	if (filterImageSelect) {
@@ -128,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.log(`Post "${post.name}" overall filter result: ${passes ? "PASS" : "FAIL"}`);
 		return passes;
 	}
-	
+
 	/*
 	 * Applies the filters currently entered by the user to the set of all posts.
 	 * Any post that satisfies the user's filter values will be displayed,
@@ -138,6 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	 */
 	function doFilterUpdate() {
 		console.log("Applying filters to posts");
+
+		// Validate date range before proceeding
+		if (!validateDateRange()) {
+			return; // Stop filtering if dates are invalid
+		}
+	
 	
 		// Check if all filters are empty - if so, show all posts
 		var isTextEmpty = !filterTextInput || filterTextInput.value.trim() === "";

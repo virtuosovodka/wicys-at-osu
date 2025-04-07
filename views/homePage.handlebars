@@ -1,64 +1,76 @@
+<!-- homePage.handlebars -->
+<div class="page-content">  
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">WiCyS @ Oregon State University</h1>
+            <p class="hero-subtitle">Empowering women in cybersecurity through community, education, and opportunity</p>
+            <a href="/contact" class="cta-button">Join Our Community</a>
+        </div>
+    </div>
 
-<div class="homePageContent contentContainer">
-    <section class="slideshow-container">
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
         {{#each slides}}
             {{> slideshow}}
         {{/each}}
-        <!-- Navigation Buttons -->
-        <div class="slideshow-navigation">
-            <button class="prev-slide">&#8592;</button>
-            <button class="next-slide">&#8594;</button>
+        <!-- Next and previous buttons -->
+        <a class="prev">&#10094;</a>
+        <a class="next">&#10095;</a>
+    </div>
+    
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="section-container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        Our mission is to help build a diverse cybersecurity workforce by facilitating the recruitment, retention, and advancement of Women in Cybersecurity. However, this club is not exclusive to women or those who identify as women, we accept all allies!
+                    </p>
+                </div>
+                <div class="about-cards">
+                    <div class="info-card">
+                        <div class="card-icon">👩‍💻</div>
+                        <h3>Community</h3>
+                        <p>Connect with like-minded individuals passionate about cybersecurity</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">🛡️</div>
+                        <h3>Learning</h3>
+                        <p>Access workshops, training, and mentorship opportunities</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-icon">🚀</div>
+                        <h3>Growth</h3>
+                        <p>Develop professional skills and advance your career in cybersecurity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Preview Section -->
+    <section class="blog-preview-section">
+        <div class="section-container">
+            <h2 class="section-title">Latest From Our Blog</h2>
+            <div class="blog-preview-card">
+                <p>{{firstPost}}</p>
+                <a href="/blog" class="blog-link">See more blog posts <span class="arrow">→</span></a>
+            </div>
         </div>
     </section>
 
-    <h1>
-        About WiCyS @ Oregon State University
-    </h1>
-    <p>
-        Our mission is to help build a diverse cybersecurity workforce by facilitating the recruitment, retention, and advancement of women in cybersecurity. However, this club is not exclusive to women or those identify as women, we accept all allies!
-    </p>
-
-    <h1>
-        Testimonies
-    </h1>
-    <p>
-        {{firstTestimony}}
-    </p>
-    <a href="/testimonials">See more Testimonies!</a>
-
-    <h1>
-        Give Us Your Feedback!
-    </h1>
-    <div class="centerForm">
-        <div class="formDiv">    
-            <form class="formContainer" id="testimonyForm">
-                <div class="formInputContainer">
-                    <label for="Name" class="formInputLabel">Name:</label>
-                    <div class="formInputElement">
-                        <input type="text" id="testimonyName" name="testimonyName" class="formInput">
-                    </div>
-                </div>
-
-                <div class="formInputContainer">
-                    <label for="Message" class="formInputLabel">Message:</label>
-                    <div class="formInputElement">
-                        <textarea id="testimonyInput" name="testimonyInput" class="formInput" wrap="soft" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="formInputContainer">
-                    <label for="Image" class="formInputLabel">Image:</label>
-                    <div class="formInputElement">
-                        <input type="text" id="testimonyImage" name="testimonyImage" class="formInput">
-                    </div>
-                </div>
-
-                <div class="formInputContainer">
-                    <div class="formInputElement formInputWidth" id="submitButtonContainer">
-                        <input type="button" value="Submit" class="buttons" id="testimonySubmit">
-                    </div>
-                </div>
-            </form>
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2>Ready to join our community?</h2>
+            <p>Connect with us on Discord, attend our next event, or reach out with questions!</p>
+            <div class="cta-buttons">
+                <a href="https://discord.gg/PUv3Cz9PzK" class="social-button discord">Join Discord</a>
+                <a href="/events" class="social-button events">Upcoming Events</a>
+                <a href="/contact" class="cta-button">Contact Us</a>
+            </div>
         </div>
-    </div>
+    </section>
 </div>

@@ -1,0 +1,16 @@
+<article class="blog-post" data-date="{{date}}">
+    {{#if url}}
+    <div class="blog-pic">
+        <img src="{{url}}" alt="{{alt}}">
+    </div>
+    {{/if}}
+    
+    <div class="blog-content {{#unless url}}no-image{{/unless}}">
+        <h3>{{title}}</h3>
+        <div class="blog-date">{{date}}</div>
+        <p class="blog-desc">{{desc}}</p>
+        <button type="button" class="readMore" data-title="{{title}}" data-description="{{desc}}" data-photo="{{url}}" data-alt="{{alt}}">
+            Read More
+        </button>
+    </div>
+</article>

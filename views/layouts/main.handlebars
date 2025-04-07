@@ -5,32 +5,39 @@
     <link rel="stylesheet" href="/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.js" charset="utf-8" defer></script>
-    <script src="singleTestimonyTemplate.js" charset="utf-8" defer></script>
-    <script src="index.js" charset="utf-8" defer></script>
-    <script src="slideShowTemplate.js"></script> 
+    <script src="./singlePostTemplate.js" charset="utf-8" defer></script>
+    <script src="./index.js" charset="utf-8" defer></script>
+    <script src="./slideShowTemplate.js"></script> 
 </head>
 
 <header>
     <div class="navbar">
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <ul>
-            <li id="navImg"><img src="./images/wicys_shield_beaver_logo.png"></li>
-            <div class="navbar-items">
-                <li><a href="/">Home</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-                <li><a href="/events">Events</a></li>
-                <li><a href="/testimonials">Testimonials</a></li>
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="/">
+                    <img src="./images/wicys_shield_beaver_logo.png" alt="WiCyS @ OSU Logo">
+                </a>
             </div>
-        </ul>
+            
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            
+            <nav class="navbar-menu">
+                <ul class="navbar-items">
+                    <li><a class="nav-link" href="/">Home</a></li>
+                    <li><a class="nav-link" href="/about">About</a></li>
+                    <li><a class="nav-link" href="/events">Events</a></li>
+                    <li><a class="nav-link" href="/blog">Blog</a></li>
+                    <li><a class="nav-button" href="/contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </header>
-
-
 
     <body>
         <main>
@@ -38,9 +45,43 @@
         </main>
     </body>
 
-    <footer>
-        <a href="https://discord.gg/PUv3Cz9PzK"><img src = "./images/discord.png" width="50" height = "50"></a>
-        <a href="https://www.instagram.com/wicys_oregonstate/"><img src = "./images/instagram.png" width="50" height = "50"></a>
-        <a href="contact.html"><img src = "./images/email.png" width="50" height = "50"></a></a>
-    </footer>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-main">
+            <div class="footer-about">
+                <img src="./images/wicys_shield_beaver_logo.png" alt="WiCyS @ OSU Logo" class="footer-logo">
+                <p>Supporting women in cybersecurity at Oregon State University</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/events">Events</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://discord.gg/PUv3Cz9PzK" class="social-icon discord" aria-label="Discord">
+                        <img src="./images/discord.png" alt="Discord">
+                    </a>
+                    <a href="https://www.instagram.com/wicys_oregonstate/" class="social-icon instagram" aria-label="Instagram">
+                        <img src="./images/instagram.png" alt="Instagram">
+                    </a>
+                    <a href="/contact" class="social-icon email" aria-label="Email">
+                        <img src="./images/email.png" alt="Email">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            {{!-- <p>&copy; 2025 WiCyS @ Oregon State University. All rights reserved.</p> --}}
+        </div>
+    </div>
+</footer>
 </html>

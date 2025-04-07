@@ -1,15 +1,15 @@
-<html>
-    <head>
-        <title>Events</title>
-    </head>
-
-    <body id = "events-page">
-        <div class="contentContainer">
-            <h1>Events</h1>
-            <!-- Got help from https://stackoverflow.com/questions/32540044/display-current-date-in-dd-mm-yyyy-format -->
-            <h2> Current Date: <script> document.write(new Date().toLocaleDateString()); </script>
-            </h2>
-            <iframe src="https://calendar.google.com/calendar/embed?src=65ab4dfe9533f7a0457013d802bdfc01bfcd2937fb1bc360b83587939a05ab1e%40group.calendar.google.com&ctz=America%2FLos_Angeles" style="border: 0" width="800" height="600" frameborder="0" align="center" scrolling="no"></iframe>
+<span id="events-page">
+    <div class="center-content">
+        <h1>Upcoming Events</h1>
+        <h2>
+            <span>Today: </span>
+            <script>
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                document.write(new Date().toLocaleDateString('en-US', options));
+            </script>
+        </h2>
+        <div class="calendar-container">
+            <iframe src="https://calendar.google.com/calendar/embed?src=65ab4dfe9533f7a0457013d802bdfc01bfcd2937fb1bc360b83587939a05ab1e%40group.calendar.google.com&ctz=America%2FLos_Angeles" frameborder="0" scrolling="no"></iframe>
         </div>
-    </body>
-</html>
+    </div>
+</span>

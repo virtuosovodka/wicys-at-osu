@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		filterImageSelect.addEventListener('change', doFilterUpdate);
 	}
 
+	// Reset and un-hide all posts
 	function clearFiltersAndShowAllPosts() {
 		// Clear all filter inputs
 		if (filterTextInput) filterTextInput.value = "";
@@ -172,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (!validateDateRange()) {
 			return; // Stop filtering if dates are invalid
 		}
-	
 	
 		// Check if all filters are empty - if so, show all posts
 		var isTextEmpty = !filterTextInput || filterTextInput.value.trim() === "";

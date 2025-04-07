@@ -32,6 +32,11 @@ app.get('', function (req, res, next) {
     res.status(200).render("homePage", context);
 });
 
+// Display About page
+app.get('/about', function (req, res, next) {
+    res.status(200).render("aboutPage");
+});
+
 // Display Events page
 app.get('/events', function (req, res, next) {
     res.status(200).render("eventsPage");

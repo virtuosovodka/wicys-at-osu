@@ -1288,3 +1288,207 @@ p {
     background: #9B7B9C;
     color: #FFFFFF;
 }
+
+/* Additional Mobile-Friendly CSS Rules */
+
+/* Improved base font sizing for mobile */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 16px; /* Base font size for better readability */
+    }
+    
+    body {
+        line-height: 1.7; /* Increased line height for better readability */
+    }
+    
+    h1 {
+        font-size: 2rem; /* Slightly smaller headings on mobile */
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    p {
+        font-size: 1rem;
+        margin-bottom: 1rem; /* Add spacing between paragraphs */
+    }
+    
+    /* Adjust padding for page content */
+    .page-content {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    /* Improve touch targets */
+    .nav-link, 
+    .cta-button,
+    .social-button,
+    .blog-post .readMore,
+    .filter-reset-button {
+        padding: 0.7rem 1.2rem; /* Larger touch targets for fingers */
+        min-height: 44px; /* Apple's recommended minimum touch target size */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Improve slideshow controls for touch */
+    .prev, .next {
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Better spacing for cards on mobile */
+    .officer-simple-card,
+    .info-card,
+    .blog-post {
+        margin-bottom: 1.5rem;
+        width: 90%; /* Take up most of the width but leave some margin */
+        max-width: 400px;
+    }
+    
+    /* Fix modal overflow issues */
+    .modal-body {
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+    
+    /* Hero section adjustments */
+    .hero-section {
+        padding: 2.5rem 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        line-height: 1.5;
+    }
+}
+
+/* Additional breakpoint for very small screens */
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .navbar-container {
+        padding: 0.5rem;
+    }
+    
+    .navbar-logo img {
+        height: 40px; /* Smaller logo on very small screens */
+    }
+    
+    /* Single column layout for all grid items */
+    .blog-grid,
+    .officers-simple-list,
+    .about-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Full width sections for small screens */
+    .section-container,
+    .hero-section,
+    .cta-section,
+    .contact-card {
+        padding: 1.5rem 1rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Adjust button spacing */
+    .cta-buttons {
+        gap: 1rem;
+    }
+    
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Adjust footer on very small screens */
+    .footer-main {
+        gap: 1.5rem;
+    }
+    
+    .social-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Fix font rendering */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix input fields on mobile */
+input, 
+select, 
+textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+/* Better tap targets for footer links */
+.footer-links ul li {
+    margin-bottom: 1rem;
+}
+
+.footer-links ul li a {
+    display: inline-block;
+    padding: 0.25rem 0;
+}
+
+/* Ensure images scale properly */
+.blog-pic img,
+.slide-pic,
+.blog-img-container img {
+    max-width: 100%;
+}
+
+/* Improve readability of text */
+@media (max-width: 768px) {
+    .blog-desc,
+    .about-text,
+    .blog-desc-full,
+    .slides-text {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    /* Reduce contrast for better readability */
+    body {
+        color: #333; /* Slightly lighter than black for better readability */
+    }
+    
+    /* Improve text contrast on colored backgrounds */
+    .hero-section,
+    .cta-section,
+    .contact-card {
+        color: rgba(255, 255, 255, 0.95);
+    }
+}
+
+/* Fix mobile menu accessibility */
+.navbar-items .nav-link {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 0;
+}
+
+/* Add safe area insets for modern mobile browsers */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+}

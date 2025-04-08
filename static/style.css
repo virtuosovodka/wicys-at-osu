@@ -1289,29 +1289,109 @@ p {
     color: #FFFFFF;
 }
 
-/* Additional Mobile-Friendly CSS Rules */
+/* Comprehensive Mobile-Friendly CSS Rules */
 
-/* Improved base font sizing for mobile */
+/* Mobile improvements for screen sizes 768px and below */
 @media screen and (max-width: 768px) {
+    /* Base font sizing - enhanced for better readability */
     html {
-        font-size: 16px; /* Base font size for better readability */
+        font-size: 18px; /* Increased from 16px for better readability */
     }
     
     body {
         line-height: 1.7; /* Increased line height for better readability */
+        color: #333; /* Slightly lighter than black for better readability */
     }
     
+    /* Font smoothing for better mobile rendering */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Prevent iOS zoom on form field focus */
+    input, select, textarea {
+        font-size: 16px;
+    }
+    
+    /* Headings - make them more prominent */
     h1 {
-        font-size: 2rem; /* Slightly smaller headings on mobile */
+        font-size: 2.2rem !important; /* About 40px */
+        line-height: 1.2;
     }
     
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem !important; /* About 32px */
+        line-height: 1.3;
+        margin-bottom: 1rem;
     }
     
-    p {
-        font-size: 1rem;
-        margin-bottom: 1rem; /* Add spacing between paragraphs */
+    h3 {
+        font-size: 1.4rem !important; /* About 25px */
+        line-height: 1.3;
+    }
+    
+    /* Body text - significantly larger */
+    p, li, .blog-desc, .about-text, .footer-links ul li a {
+        font-size: 1.1rem !important; /* About 20px */
+        line-height: 1.7;
+    }
+    
+    /* Card and section text */
+    .officer-simple-card p,
+    .info-card p,
+    .blog-content p,
+    .slides-text,
+    .blog-desc-full {
+        font-size: 1.1rem !important;
+        line-height: 1.7;
+    }
+    
+    /* Button and interactive element text */
+    .cta-button,
+    .nav-button,
+    .social-button,
+    .blog-post .readMore,
+    .filter-reset-button {
+        font-size: 1.1rem !important;
+        font-weight: 600;
+    }
+    
+    /* Navigation */
+    .nav-link {
+        font-size: 1.2rem !important;
+    }
+    
+    /* Hero section text */
+    .hero-title {
+        font-size: 2.5rem !important; /* About 45px */
+        line-height: 1.1;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem !important; /* About 23px */
+        line-height: 1.5;
+    }
+    
+    /* Section titles */
+    .section-title, 
+    .section-subtitle {
+        font-size: 2.2rem !important;
+        line-height: 1.2;
+    }
+    
+    /* Footer text */
+    .footer-links h3, 
+    .footer-contact h3 {
+        font-size: 1.4rem !important;
+    }
+    
+    .footer-about p {
+        font-size: 1.1rem !important;
+    }
+    
+    .footer-bottom {
+        font-size: 1rem !important;
     }
     
     /* Adjust padding for page content */
@@ -1347,6 +1427,7 @@ p {
         margin-bottom: 1.5rem;
         width: 90%; /* Take up most of the width but leave some margin */
         max-width: 400px;
+        padding: 1.5rem !important; /* More padding with larger text */
     }
     
     /* Fix modal overflow issues */
@@ -1359,21 +1440,60 @@ p {
         padding: 2.5rem 1rem;
     }
     
-    .hero-title {
-        font-size: 2rem;
-        line-height: 1.2;
+    /* Improve spacing with larger text */
+    .section-container,
+    .contact-card,
+    .blog-content,
+    .about-text {
+        padding: 1.5rem !important;
     }
     
-    .hero-subtitle {
-        font-size: 1.1rem;
-        line-height: 1.5;
+    /* Improve readability of text on colored backgrounds */
+    .hero-section,
+    .cta-section,
+    .contact-card {
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Fix mobile menu accessibility */
+    .navbar-items .nav-link {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0;
+    }
+    
+    /* Better tap targets for footer links */
+    .footer-links ul li {
+        margin-bottom: 1rem;
+    }
+    
+    .footer-links ul li a {
+        display: inline-block;
+        padding: 0.25rem 0;
+    }
+    
+    /* Ensure images scale properly */
+    .blog-pic img,
+    .slide-pic,
+    .blog-img-container img {
+        max-width: 100%;
     }
 }
 
 /* Additional breakpoint for very small screens */
 @media screen and (max-width: 480px) {
     html {
-        font-size: 15px;
+        font-size: 19px; /* Even larger base font for very small screens */
+    }
+    
+    /* Adjust heading sizes for very small screens */
+    h1 {
+        font-size: 2rem !important; /* Still large but more compact */
+    }
+    
+    h2 {
+        font-size: 1.7rem !important;
     }
     
     .navbar-container {
@@ -1401,9 +1521,18 @@ p {
         box-sizing: border-box;
     }
     
-    /* Adjust button spacing */
+    /* Adjust button spacing and make more tappable */
     .cta-buttons {
         gap: 1rem;
+    }
+    
+    .cta-button,
+    .nav-button,
+    .social-button,
+    .blog-post .readMore,
+    .filter-reset-button {
+        padding: 0.8rem 1.5rem !important;
+        min-height: 48px !important; /* Larger touch target */
     }
     
     /* Ensure images don't overflow */
@@ -1423,72 +1552,13 @@ p {
     }
 }
 
-/* Fix font rendering */
-* {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-/* Fix input fields on mobile */
-input, 
-select, 
-textarea {
-    font-size: 16px; /* Prevents iOS zoom on focus */
-}
-
-/* Better tap targets for footer links */
-.footer-links ul li {
-    margin-bottom: 1rem;
-}
-
-.footer-links ul li a {
-    display: inline-block;
-    padding: 0.25rem 0;
-}
-
-/* Ensure images scale properly */
-.blog-pic img,
-.slide-pic,
-.blog-img-container img {
-    max-width: 100%;
-}
-
-/* Improve readability of text */
-@media (max-width: 768px) {
-    .blog-desc,
-    .about-text,
-    .blog-desc-full,
-    .slides-text {
-        font-size: 1rem;
-        line-height: 1.7;
-    }
-    
-    /* Reduce contrast for better readability */
-    body {
-        color: #333; /* Slightly lighter than black for better readability */
-    }
-    
-    /* Improve text contrast on colored backgrounds */
-    .hero-section,
-    .cta-section,
-    .contact-card {
-        color: rgba(255, 255, 255, 0.95);
-    }
-}
-
-/* Fix mobile menu accessibility */
-.navbar-items .nav-link {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    padding: 0.75rem 0;
-}
-
 /* Add safe area insets for modern mobile browsers */
 @supports (padding: max(0px)) {
-    body {
-        padding-left: max(1rem, env(safe-area-inset-left));
-        padding-right: max(1rem, env(safe-area-inset-right));
-        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    @media screen and (max-width: 768px) {
+        body {
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
     }
 }

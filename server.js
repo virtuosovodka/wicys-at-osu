@@ -37,6 +37,11 @@ app.get('/about', function (req, res, next) {
     res.status(200).render("aboutPage");
 });
 
+// Display Resources page
+app.get('/resources', function (req, res, next) {
+    res.status(200).render("resourcesPage");
+});
+
 // Display Events page
 app.get('/events', function (req, res, next) {
     res.status(200).render("eventsPage");

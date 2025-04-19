@@ -1,51 +1,27 @@
 [
    {
         "name": "BSides",
-        "desc": "WiCyS members attended BSides and got to meet people in the cybersecurity industry. They also listened to talks and participated in the CTF.",
-        "url": "https://drgecko.xyz/src/images/wicys/bsides_and_zane.png",
-        "alt": "Groups Photo of WiCyS at BSides",
-        "date": "October 25, 2024"
+        "url": "./images/slides/bsides_group.png",
+        "alt": "Group Photo of WiCyS at BSides"
     },
     {
         "name": "BSides Airbnb",
-        "desc": "WiCyS rented an Airbnb to be able to attend two days of the BSides conference.",
-        "url": "https://drgecko.xyz/src/images/wicys/bsides_house.jpg",
-        "alt": "Groups Photo of WiCys at BSides",
-        "date": "October 25, 2024"
+        "url": "./images/slides/wicys_airbnb.jpg",
+        "alt": "Group Photo of WiCyS at BSides"
     },
     {
-        "name": "Reverse Career Fair",
-        "desc": "WiCyS officers represented their club at the Reverse Careeer fair and got to speak to people from different companies.",
-        "url": "https://drgecko.xyz/src/images/wicys/outreach.jpg",
-        "alt": "WiCys officers at the Reverse Career Fair",
-        "date": "October 23, 2024"
+        "name": "WiCyS General Meeting",
+        "url": "./images/slides/gen_meet_1.jpg",
+        "alt": "WiCyS General Meeting"
     },
     {
-        "name": "Professional",
-        "desc": "WiCyS members listened to professionals in the field talk about their jobs, their life experiences on how they got there, and possible opportunities.",
-        "url": "https://drgecko.xyz/src/images/wicys/group.jpg",
-        "alt": "General Meeting 2",
-        "date": "October 29, 2024"
+        "name": "WiCyS General Meeting",
+        "url": "./images/slides/gen_meet_2.jpg",
+        "alt": "WiCyS General Meeting"
     },
     {
-        "name": "Educational",
-        "desc": "The first WiCyS meeting got members introduced to the club and got into different scholarship opportunites available.",
-        "url": "https://drgecko.xyz/src/images/wicys/shenannigans.jpg",
-        "alt": "General Meeting 1",
-        "date": "October 17, 2024"
-    },
-    {
-        "name": "Outreach",
-        "desc": "WiCyS Officers tabled at OSU's College of Engineering Cookies and Clubs.  They had a chance to reach out to students at OSU and potential new members of the club.",
-        "url": "https://drgecko.xyz/src/images/wicys/more_officers.jpg",
-        "alt": "Cookies and Clubs",
-        "date": "November 24, 2024"
-    },
-    {
-        "name": "Officers and Advisor",
-        "desc": "This picture was taken Spring of 2024, the club's first official term.  Pictured are the officers and advisor of the club.",
-        "url": "https://drgecko.xyz/src/images/wicys/officers.jpg",
-        "alt": "Officers and Advisor",
-        "date": "Spring 2024"
+        "name": "WiCyS Tabling",
+        "url": "./images/slides/table.jpg",
+        "alt": "WiCyS Tabling"
     }
 ]

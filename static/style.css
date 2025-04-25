@@ -1185,7 +1185,7 @@ p {
     }
     
     #menu-toggle:checked ~ .navbar-menu {
-        max-height: 300px;
+        max-height: 700px;
     }
     
     #menu-toggle:checked ~ .menu-icon span:nth-child(1) {

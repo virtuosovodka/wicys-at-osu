@@ -82,15 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Initialize the slideshow when the DOM is loaded
     initSlideshow();
-    
-    // Additional code for other parts of your site
-    // for invite link
-    if (window.location.pathname == "/contact.html") {
-        let link = document.getElementById('ils');
-        if (link) {
-            link.setAttribute("href", atob("aHR0cHM6Ly9kaXNjb3JkLmdnL1BVdjNDejlQeks="));
-        }
-    }
 
     // Safeguard for Navbar Hamburger Menu Interaction
     const menuToggle = document.getElementById('menu-toggle');

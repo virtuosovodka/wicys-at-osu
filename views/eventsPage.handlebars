@@ -1,15 +1,17 @@
-<span id="events-page">
-    <div class="center-content">
-        <h1>Upcoming Events</h1>
-        <h2>
-            <span>Today: </span>
-            <script>
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                document.write(new Date().toLocaleDateString('en-US', options));
-            </script>
-        </h2>
-        <div class="calendar-container">
-            <iframe src="https://calendar.google.com/calendar/embed?src=smallestmermaid%40gmail.com&ctz=America%2FLos_Angeles" frameborder="0" scrolling="no"></iframe>
+<div id="events-page">
+    <div class="page-content">
+        <div class="hero-section">
+            <div class="hero-content">
+                    <h1 class="hero-title">Upcoming Events</h1>
+                <p class="hero-subtitle">
+                    Today: {{today}}
+                </p>
+            </div>
+        </div>
+        <div class="center-content">
+            <div class="calendar-container">
+                <iframe src="https://calendar.google.com/calendar/embed?src=smallestmermaid%40gmail.com&ctz=America%2FLos_Angeles" frameborder="0" scrolling="no"></iframe>
+            </div>
         </div>
     </div>
-</span>
+</div>

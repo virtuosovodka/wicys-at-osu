@@ -33,8 +33,13 @@ app.get('', function (req, res, next) {
 });
 
 // Display About page
-app.get('/about', function (req, res, next) {
-    res.status(200).render("aboutPage");
+// app.get('/about', function (req, res, next) {
+//     res.status(200).render("aboutPage");
+// });
+
+// Display Sponsor page
+app.get('/sponsor', function (req, res, next) {
+    res.status(200).render("sponsorPage");
 });
 
 // Display Resources page
@@ -44,7 +49,9 @@ app.get('/resources', function (req, res, next) {
 
 // Display Events page
 app.get('/events', function (req, res, next) {
-    res.status(200).render("eventsPage");
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    today = new Date().toLocaleDateString('en-US', options);
+    res.status(200).render("eventsPage", {today: today});
 });
 
 // Display Contact page

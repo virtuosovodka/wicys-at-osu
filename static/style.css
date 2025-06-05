@@ -402,6 +402,12 @@ p {
     border-left: 4px solid #6b2d7e;
 }
 
+.blog-preview-card p {
+    white-space: pre-line; /* Preserves line breaks but collapses spaces */
+    word-wrap: break-word; /* Prevents long words from overflowing */
+    text-indent: 0; /* Remove any text indentation */
+}
+
 .blog-link {
     display: inline-flex;
     align-items: center;

@@ -23,5 +23,15 @@
         "name": "WiCyS Tabling",
         "url": "./images/slides/table.jpg",
         "alt": "WiCyS Tabling"
+    },
+    {
+        "name": "Guest Speaker: Jordan Hankin",
+        "url": "./images/slides/jordan_group_1-13-26.jpg",
+        "alt": "Jordan Hankin presenting about ORTSOC"
+    },
+    {
+        "name": "Guest Speaker: Jordan Hankin",
+        "url": "./images/blog/jordan_solo_1-13-26.jpg",
+        "alt": "Jordan Hankin introducing herself"
     }
 ]

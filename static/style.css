@@ -288,7 +288,7 @@ p {
 }
 
 /* Officer List Styling */
-.officers-simple-list {
+.officers-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
@@ -298,7 +298,7 @@ p {
     justify-content: center;
 }
 
-.officer-simple-card {
+.officer-card {
     background-color: white;
     border-radius: 10px;
     padding: 1.5rem;
@@ -309,26 +309,26 @@ p {
     margin: 0.75rem;
 }
 
-.officer-simple-card:hover {
+/* .officer-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
+} */
 
-.officer-simple-card h3 {
+.officer-card h3 {
     color: #6b2d7e;
     margin-top: 0;
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
 }
 
-.officer-simple-card p {
+.officer-card p {
     color: #555;
     margin: 0;
     font-size: 0.95rem;
 }
 
 @media screen and (max-width: 768px) {
-    .officer-simple-card {
+    .officer-card {
         width: 200px;
     }
 }
@@ -1415,7 +1415,7 @@ p {
     }
     
     /* Card and section text */
-    .officer-simple-card p,
+    .officer-card p,
     .info-card p,
     .blog-content p,
     .slides-text,
@@ -1498,7 +1498,7 @@ p {
     }
     
     /* Better spacing for cards on mobile */
-    .officer-simple-card,
+    .officer-card,
     .info-card,
     .blog-post {
         margin-bottom: 1.5rem;
@@ -1583,7 +1583,7 @@ p {
     
     /* Single column layout for all grid items */
     .blog-grid,
-    .officers-simple-list,
+    .officers-list,
     .about-cards {
         grid-template-columns: 1fr;
     }

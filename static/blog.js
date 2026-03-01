@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Parse all posts on page load
 	for (var i = 0; i < postElems.length; i++) {
-		console.log("Inspecting post element: ", postElems[i]);
+		// console.log("Inspecting post element: ", postElems[i]);
 		allPosts.push(parsePostElem(postElems[i]));
 	}
 
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 
-		console.log("All filters cleared, showing all posts");
+		// console.log("All filters cleared, showing all posts");
 	}
 
 	/*
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	 * if the blog passes the filters and should be displayed and false otherwise.
 	 */
 	function postPassesFilters(post, filters) {
-		console.log("Checking post against filters:", post.name);
+		// console.log("Checking post against filters:", post.name);
 	
 		// Text filter check
 		var passesText = true;
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			var filterText = filters.text.toLowerCase();
 	
 			if (!postName.includes(filterText) && !postDesc.includes(filterText)) {
-				console.log("Post doesn't pass text filter");
+				// console.log("Post doesn't pass text filter");
 				passesText = false;
 			}
 		}
@@ -116,10 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			var postDate = post.date instanceof Date ? post.date : new Date(post.date);
 			
 			if (isNaN(postDate.getTime())) {
-				console.log("Post has invalid date");
+				// console.log("Post has invalid date");
 				passesStart = false;
 			} else if (postDate < filters.startDate) {
-				console.log("Post doesn't pass start date filter");
+				// console.log("Post doesn't pass start date filter");
 				passesStart = false;
 			}
 		}
@@ -134,29 +134,29 @@ document.addEventListener('DOMContentLoaded', function() {
 			filterEndDate.setHours(23, 59, 59, 999);
 	
 			if (isNaN(postDate.getTime())) {
-				console.log("Post has invalid date");
+				// console.log("Post has invalid date");
 				passesEnd = false;
 			} else if (postDate > filterEndDate) {
-				console.log("Post doesn't pass end date filter");
+				// console.log("Post doesn't pass end date filter");
 				passesEnd = false;
 			}
 		}
 	
 		// Image filter check
-		var passesImage = true;
-		if (filters.includeImage !== "Both") {
-			var hasImage = !!post.url;
+		// var passesImage = true;
+		// if (filters.includeImage !== "Both") {
+		// 	var hasImage = !!post.url;
 	
-			if (filters.includeImage === "Yes" && !hasImage) {
-				passesImage = false;
-			} else if (filters.includeImage === "No" && hasImage) {
-				passesImage = false;
-			}
-		}
+		// 	if (filters.includeImage === "Yes" && !hasImage) {
+		// 		passesImage = false;
+		// 	} else if (filters.includeImage === "No" && hasImage) {
+		// 		passesImage = false;
+		// 	}
+		// }
 	
-		var passes = passesText && passesStart && passesEnd && passesImage;
-		console.log(`Post "${post.name}" overall filter result: ${passes ? "PASS" : "FAIL"}`);
-		return passes;
+		// var passes = passesText && passesStart && passesEnd && passesImage;
+		// // console.log(`Post "${post.name}" overall filter result: ${passes ? "PASS" : "FAIL"}`);
+		// return passes;
 	}
 
 	/*
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	 * hidden.
 	 */
 	function doFilterUpdate() {
-		console.log("Applying filters to posts");
+		// console.log("Applying filters to posts");
 
 		// Validate date range before proceeding
 		if (!validateDateRange()) {
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var isImageDefault = !filterImageSelect || filterImageSelect.value === "Both";
 	
 		if (isTextEmpty && isStartEmpty && isEndEmpty && isImageDefault) {
-			console.log("All filters are empty, showing all posts");
+			// console.log("All filters are empty, showing all posts");
 			clearFiltersAndShowAllPosts();
 			return;
 		}
@@ -198,21 +198,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 		// Validate date objects
 		if (filters.startDate && isNaN(filters.startDate.getTime())) {
-			console.warn("Invalid start date entered");
+			// console.warn("Invalid start date entered");
 			filters.startDate = null;
 		}
 		
 		if (filters.endDate && isNaN(filters.endDate.getTime())) {
-			console.warn("Invalid end date entered");
+			// console.warn("Invalid end date entered");
 			filters.endDate = null;
 		}
 	
-		console.log("Filter values:", {
-			text: filters.text,
-			startDate: filters.startDate ? filters.startDate.toISOString().split('T')[0] : "none",
-			endDate: filters.endDate ? filters.endDate.toISOString().split('T')[0] : "none",
-			includeImage: filters.includeImage
-		});
+		// console.log("Filter values:", {
+		// 	text: filters.text,
+		// 	startDate: filters.startDate ? filters.startDate.toISOString().split('T')[0] : "none",
+		// 	endDate: filters.endDate ? filters.endDate.toISOString().split('T')[0] : "none",
+		// 	includeImage: filters.includeImage
+		// });
 	
 		// Reset all post visibilities first
 		var postContainer = document.getElementById('blog-flex');
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		}
 	
-		console.log("Filter application complete");
+		// console.log("Filter application complete");
 	}
 
 	/*
@@ -280,8 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			// If date parsing failed, log warning and set to current date
 			if (isNaN(post.date.getTime())) {
-				console.warn("Invalid date format found:", dateStr);
-				console.warn("Make sure dates are in YYYY-MM-DD format");
+				// console.warn("Invalid date format found:", dateStr);
+				// console.warn("Make sure dates are in YYYY-MM-DD format");
 				post.date = new Date(); // Fallback to current date
 			}
 		} else {
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			post.date = new Date(); // Default to current date
 		}
 	
-		console.log("Parsed post:", post);
+		// console.log("Parsed post:", post);
 		return post;
 	}
 
@@ -350,6 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		modalBackdrop.addEventListener('click', hideModal);
 	}
     
-    console.log('Blog JS loaded successfully');
+    // console.log('Blog JS loaded successfully');
 });
 

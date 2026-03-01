@@ -1,22 +1,31 @@
-var path = require('path');
-var express = require('express');
-var exphbs = require('express-handlebars');
-var fs = require('fs');
-var Handlebars = require('handlebars');
+let path = require('path');
+let express = require('express');
+let exphbs = require('express-handlebars');
+let fs = require('fs');
+let Handlebars = require('handlebars');
+const helmet = require('helmet');
 
 Handlebars.registerHelper('encodeContent', function(content) {
-    return content ? content.replace(/"/g, '&quot;') : '';
+    if (!content) return '';
+    return content
+        .replace(/&/g, '&amp;')   // must be first
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#x27;')
+        .replace(/\//g, '&#x2F;');
 });
 
-var loadPosts = require('./loadPosts');
+let loadPosts = require('./loadPosts');
 
 // Load blog posts from markdown files in /posts
-var blogData = loadPosts();
+let blogData = loadPosts();
 
-var slidesData = require("./images.json");
+let slidesData = require("./images.json");
 
-var app = express();
-var port = process.env.PORT || 3000;
+let app = express();
+app.use(helmet());
+let port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'static'))); // Serve static files from 'static'
 
@@ -30,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'static')));
 
 // Display Home page
 app.get('', function (req, res, next) {
-    var context = {
+    let context = {
         firstPost: blogData[0] ? blogData[0].desc : '',
         slides: slidesData
     };
@@ -66,7 +75,7 @@ app.get('/contact', function (req, res, next) {
 
 // Display Blog page
 app.get('/blog', function (req, res, next) {
-    var context = {
+    let context = {
         blogData: blogData
     };
     res.status(200).render("blogPage", context);
@@ -74,7 +83,7 @@ app.get('/blog', function (req, res, next) {
 
 // // Display individual blog post page
 // app.get('/blog/:slug', function (req, res, next) {
-//     var post = blogData.find(function (p) {
+//     let post = blogData.find(function (p) {
 //         return p.title.toLowerCase().replace(/\s+/g, '-') === req.params.slug;
 //     });
 //     if (!post) return next();

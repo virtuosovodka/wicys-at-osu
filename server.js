@@ -24,7 +24,15 @@ let blogData = loadPosts();
 let slidesData = require("./images.json");
 
 let app = express();
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        "script-src": ["'self'", "fonts.googleapis.com", "cdnjs.cloudflare.com"],
+      },
+    },
+  }),
+);
 let port = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname, 'static'))); // Serve static files from 'static'

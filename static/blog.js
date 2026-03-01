@@ -298,6 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var modalBackdrop = document.getElementById('modal-backdrop');
 	var modalCloseButton = document.getElementById('modal-close');
 
+
 	if (modal && modalBackdrop && modalCloseButton) {
 		// Function to show the modal
 		function showModal(event) {
@@ -307,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// Update modal content
 			modal.querySelector('.modal-header h3').textContent = post.name;
-			modal.querySelector('.blog-desc-full').innerHTML = button.dataset.content;
+			modal.querySelector('.blog-desc-full').innerHTML = DOMPurify.sanitize(button.dataset.content);
 			modal.querySelector('.blog-subtitle-modal').textContent = post.date.toLocaleDateString('en-US', {
 				year: 'numeric',
 				month: 'long',

@@ -1,0 +1,11 @@
+---
+title: Ground Kontrol Arcade - WiCyS Oregon Affiliate
+date: 2025-06-04
+url: /images/blog/gk_2025.png
+alt: WiCyS Ground Kontrol 2025 Event
+---
+This week our club had the opportunity to attend the Women in Cybersecurity event in Portland. The gathering brought together cybersecurity professionals, students, and sponsors from across the region for an evening of connection, learning, and inspiration.
+
+Hosted at Ground Kontrol, Portland’s iconic arcade and bar, the event struck the perfect balance between professional engagement and laid-back fun. Surrounded by neon lights, vintage games, and a vibrant community, we were reminded that professional growth doesn’t always have to take place in traditional spaces. Sometimes the best conversations happen over a round of pinball. The event featured a diverse group of people from all sectors of the cybersecurity field all with a different path of how they got into cybersecurity. Listening to professionals share their experiences offered valuable insight into career development. One main takeaway was that soft skills are just as important as technical skills, so as you're working towards your degree don’t forget to go out and talk to people face to face and build your network. Another key theme was the value of diversity — in thought, background, and experience. Nearly everyone at the event followed a different route into cybersecurity, reinforcing the idea that there is no single path to success in cybersecurity.
+
+We’re excited to take what we learned back to OSU and keep growing as a club, students, leaders, and future cybersecurity professionals.

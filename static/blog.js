@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// Update modal content
 			modal.querySelector('.modal-header h3').textContent = post.name;
-			modal.querySelector('.blog-desc-full').textContent = post.desc;
+			modal.querySelector('.blog-desc-full').innerHTML = button.dataset.content;
 			modal.querySelector('.blog-subtitle-modal').textContent = post.date.toLocaleDateString('en-US', {
 				year: 'numeric',
 				month: 'long',

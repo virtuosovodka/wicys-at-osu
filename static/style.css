@@ -925,6 +925,10 @@ p {
     color: #444;
 }
 
+.blog-desc-full p {
+    margin: 0;
+}
+
 /* Responsive Styling */
 @media screen and (max-width: 1200px) {
     .modal-dialog {

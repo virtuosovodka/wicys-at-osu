@@ -87,11 +87,13 @@ function writePage(filePath, html) {
             if (p1.startsWith('images')) return `href="${depth}${p1}"`;
             return `href="${depth}static/${p1}"`;
         })
-        // Handle src paths
+        // Handle src paths (absolute and relative)
         .replace(/src="\/([^"]+)"/g, (match, p1) => {
             if (p1.startsWith('images')) return `src="${depth}${p1}"`;
             return `src="${depth}static/${p1}"`;
-        });
+        })
+        // Fix relative src paths like ./blog.js to point to static
+        .replace(/src="\.\/([\w\.]+)"(?!.*static)/g, `src="${depth}static/$1"`);
 
     // Also handle single quotes if they exist
     correctedHtml = correctedHtml
@@ -103,7 +105,9 @@ function writePage(filePath, html) {
         .replace(/src='\/([^']+)'/g, (match, p1) => {
             if (p1.startsWith('images')) return `src='${depth}${p1}'`;
             return `src='${depth}static/${p1}'`;
-        });
+        })
+        // Fix relative src paths like ./blog.js to point to static
+        .replace(/src='\.\/([\w\.]+)'(?!.*static)/g, `src='${depth}static/$1'`);
 
     fs.writeFileSync(filePath, correctedHtml);
     console.log(`✓ Generated: ${path.relative(outputDir, filePath)}`);

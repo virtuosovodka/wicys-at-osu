@@ -38,7 +38,13 @@ const layout = fs.readFileSync(layoutPath, 'utf-8');
 
 // Load blog posts and images
 const blogData = loadPosts();
-const slidesData = require('./images.json');
+let slidesData = require('./images.json');
+
+// Fix image paths in slidesData to point to static/
+slidesData = slidesData.map(slide => ({
+    ...slide,
+    url: slide.url.replace(/^\.\/images\//, './static/images/')
+}));
 
 // Create output directory
 const outputDir = path.join(__dirname, 'dist');
@@ -65,14 +71,46 @@ function compilePage(viewName, context) {
 }
 
 /**
- * Write HTML file
+ * Write HTML file with path corrections for GitHub Pages
  */
 function writePage(filePath, html) {
     const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
-    fs.writeFileSync(filePath, html);
+
+    // Calculate relative path depth to root
+    const relativeToRoot = path.relative(path.dirname(filePath), outputDir);
+    const depth = relativeToRoot === '' ? '' : relativeToRoot + '/';
+
+    // Replace absolute paths with relative paths
+    let correctedHtml = html
+        // Handle href="/" -> href to index
+        .replace(/href="\/"(?![^"]*")(?!([^"]*"){1}[^"]*$)/g, `href="${depth}index.html"`)
+        // Handle absolute paths - everything goes to static/ except top-level nav links
+        .replace(/href="\/([^"]+)"/g, (match, p1) => {
+            return `href="${depth}static/${p1}"`;
+        })
+        // Handle src paths (absolute and relative)
+        .replace(/src="\/([^"]+)"/g, (match, p1) => {
+            return `src="${depth}static/${p1}"`;
+        })
+        // Fix relative src paths like ./blog.js to point to static
+        .replace(/src="\.\/([\w\.]+)"(?!.*static)/g, `src="${depth}static/$1"`);
+
+    // Also handle single quotes if they exist
+    correctedHtml = correctedHtml
+        .replace(/href='\/'/g, `href='${depth}index.html'`)
+        .replace(/href='\/([^']+)'/g, (match, p1) => {
+            return `href='${depth}static/${p1}'`;
+        })
+        .replace(/src='\/([^']+)'/g, (match, p1) => {
+            return `src='${depth}static/${p1}'`;
+        })
+        // Fix relative src paths like ./blog.js to point to static
+        .replace(/src='\.\/([\w\.]+)'(?!.*static)/g, `src='${depth}static/$1'`);
+
+    fs.writeFileSync(filePath, correctedHtml);
     console.log(`✓ Generated: ${path.relative(outputDir, filePath)}`);
 }
 
@@ -128,9 +166,10 @@ function copyDir(src, dest) {
 
 copyDir(staticDir, distStaticDir);
 
+// Copy images to static/images (since HTML paths point there)
 const imagesDir = path.join(__dirname, 'images');
 if (fs.existsSync(imagesDir)) {
-    copyDir(imagesDir, path.join(outputDir, 'images'));
+    copyDir(imagesDir, path.join(distStaticDir, 'images'));
 }
 
 console.log('\n✅ Static site built successfully!');

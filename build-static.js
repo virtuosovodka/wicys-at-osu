@@ -89,6 +89,10 @@ function writePage(filePath, html) {
         .replace(/href="\/"(?![^"]*")(?!([^"]*"){1}[^"]*$)/g, `href="${depth}index.html"`)
         // Handle page links (/blog, /resources, /events, /contact, /sponsor) -> point to page directory
         .replace(/href="\/(blog|resources|events|contact|sponsor)"/g, `href="${depth}$1/index.html"`)
+        // Handle other href absolute paths (like /style.css) -> go to static/
+        .replace(/href="\/([^"]+)"/g, (match, p1) => {
+            return `href="${depth}static/${p1}"`;
+        })
         // Handle src paths (absolute and relative) - these should go to static/
         .replace(/src="\/([^"]+)"/g, (match, p1) => {
             return `src="${depth}static/${p1}"`;

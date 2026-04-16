@@ -65,14 +65,34 @@ function compilePage(viewName, context) {
 }
 
 /**
- * Write HTML file
+ * Write HTML file with path corrections for GitHub Pages
  */
 function writePage(filePath, html) {
     const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
-    fs.writeFileSync(filePath, html);
+
+    // Calculate relative path depth to root
+    const relativeToRoot = path.relative(path.dirname(filePath), outputDir);
+    const depth = relativeToRoot === '' ? '' : relativeToRoot + '/';
+
+    // Replace absolute paths with relative paths
+    let correctedHtml = html
+        // Handle href="/" -> href to index
+        .replace(/href="\/"(?![^"]*")(?!([^"]*"){1}[^"]*$)/g, `href="${depth}index.html"`)
+        // Handle other absolute href paths
+        .replace(/href="\/([^"]+)"/g, `href="${depth}$1"`)
+        // Handle src paths
+        .replace(/src="\/([^"]+)"/g, `src="${depth}$1"`);
+
+    // Also handle single quotes if they exist
+    correctedHtml = correctedHtml
+        .replace(/href='\/'/g, `href='${depth}index.html'`)
+        .replace(/href='\/([^']+)'/g, `href='${depth}$1'`)
+        .replace(/src='\/([^']+)'/g, `src='${depth}$1'`);
+
+    fs.writeFileSync(filePath, correctedHtml);
     console.log(`✓ Generated: ${path.relative(outputDir, filePath)}`);
 }
 

@@ -38,7 +38,13 @@ const layout = fs.readFileSync(layoutPath, 'utf-8');
 
 // Load blog posts and images
 const blogData = loadPosts();
-const slidesData = require('./images.json');
+let slidesData = require('./images.json');
+
+// Fix image paths in slidesData to point to static/
+slidesData = slidesData.map(slide => ({
+    ...slide,
+    url: slide.url.replace(/^\.\/images\//, './static/images/')
+}));
 
 // Create output directory
 const outputDir = path.join(__dirname, 'dist');
@@ -81,15 +87,12 @@ function writePage(filePath, html) {
     let correctedHtml = html
         // Handle href="/" -> href to index
         .replace(/href="\/"(?![^"]*")(?!([^"]*"){1}[^"]*$)/g, `href="${depth}index.html"`)
-        // Handle other absolute href paths (but keep images with /images prefix)
+        // Handle absolute paths - everything goes to static/ except top-level nav links
         .replace(/href="\/([^"]+)"/g, (match, p1) => {
-            // If it starts with 'images', keep the path structure
-            if (p1.startsWith('images')) return `href="${depth}${p1}"`;
             return `href="${depth}static/${p1}"`;
         })
         // Handle src paths (absolute and relative)
         .replace(/src="\/([^"]+)"/g, (match, p1) => {
-            if (p1.startsWith('images')) return `src="${depth}${p1}"`;
             return `src="${depth}static/${p1}"`;
         })
         // Fix relative src paths like ./blog.js to point to static
@@ -99,11 +102,9 @@ function writePage(filePath, html) {
     correctedHtml = correctedHtml
         .replace(/href='\/'/g, `href='${depth}index.html'`)
         .replace(/href='\/([^']+)'/g, (match, p1) => {
-            if (p1.startsWith('images')) return `href='${depth}${p1}'`;
             return `href='${depth}static/${p1}'`;
         })
         .replace(/src='\/([^']+)'/g, (match, p1) => {
-            if (p1.startsWith('images')) return `src='${depth}${p1}'`;
             return `src='${depth}static/${p1}'`;
         })
         // Fix relative src paths like ./blog.js to point to static
@@ -165,9 +166,10 @@ function copyDir(src, dest) {
 
 copyDir(staticDir, distStaticDir);
 
+// Copy images to static/images (since HTML paths point there)
 const imagesDir = path.join(__dirname, 'images');
 if (fs.existsSync(imagesDir)) {
-    copyDir(imagesDir, path.join(outputDir, 'images'));
+    copyDir(imagesDir, path.join(distStaticDir, 'images'));
 }
 
 console.log('\n✅ Static site built successfully!');

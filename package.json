@@ -4,6 +4,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "build": "node node_modules/handlebars/bin/handlebars views/partials/slideshow.handlebars -f static/slideshowTemplate.js && node node_modules/handlebars/bin/handlebars views/partials/singlePost.handlebars -f static/singlePostTemplate.js",
+    "build:static": "node build-static.js",
     "prestart": "npm run build",
     "dev": "nodemon server.js"
   },

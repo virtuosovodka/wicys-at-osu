@@ -84,31 +84,26 @@ function writePage(filePath, html) {
     const depth = relativeToRoot === '' ? '' : relativeToRoot + '/';
 
     // Replace absolute paths with relative paths
+    const pages = ['blog', 'resources', 'events', 'contact', 'sponsor'];
     let correctedHtml = html
-        // Handle href="/" -> href to index
-        .replace(/href="\/"(?![^"]*")(?!([^"]*"){1}[^"]*$)/g, `href="${depth}index.html"`)
-        // Handle absolute paths - everything goes to static/ except top-level nav links
-        .replace(/href="\/([^"]+)"/g, (match, p1) => {
-            return `href="${depth}static/${p1}"`;
-        })
-        // Handle src paths (absolute and relative)
-        .replace(/src="\/([^"]+)"/g, (match, p1) => {
-            return `src="${depth}static/${p1}"`;
-        })
-        // Fix relative src paths like ./blog.js to point to static
-        .replace(/src="\.\/([\w\.]+)"(?!.*static)/g, `src="${depth}static/$1"`);
+        // Handle href="/" -> site home (index.html relative to current page)
+        .replace(/href="\/"/g, `href="${depth}index.html"`)
+        // Handle page nav links like /resources, /blog, etc.
+        .replace(/href="\/(blog|resources|events|contact|sponsor)"/g, `href="${depth}$1/index.html"`)
+        // Handle asset hrefs like /style.css, /images/... -> static/
+        .replace(/href="\/([^"]+)"/g, `href="${depth}static/$1"`)
+        // Handle src paths like /images/... -> static/
+        .replace(/src="\/([^"]+)"/g, `src="${depth}static/$1"`)
+        // Fix relative src paths like ./blog.js -> static/blog.js
+        .replace(/src="\.\/([\w\.]+)"/g, `src="${depth}static/$1"`);
 
-    // Also handle single quotes if they exist
+    // Single quotes
     correctedHtml = correctedHtml
         .replace(/href='\/'/g, `href='${depth}index.html'`)
-        .replace(/href='\/([^']+)'/g, (match, p1) => {
-            return `href='${depth}static/${p1}'`;
-        })
-        .replace(/src='\/([^']+)'/g, (match, p1) => {
-            return `src='${depth}static/${p1}'`;
-        })
-        // Fix relative src paths like ./blog.js to point to static
-        .replace(/src='\.\/([\w\.]+)'(?!.*static)/g, `src='${depth}static/$1'`);
+        .replace(/href='\/(blog|resources|events|contact|sponsor)'/g, `href='${depth}$1/index.html'`)
+        .replace(/href='\/([^']+)'/g, `href='${depth}static/$1'`)
+        .replace(/src='\/([^']+)'/g, `src='${depth}static/$1'`)
+        .replace(/src='\.\/([\w\.]+)'/g, `src='${depth}static/$1'`);
 
     fs.writeFileSync(filePath, correctedHtml);
     console.log(`✓ Generated: ${path.relative(outputDir, filePath)}`);

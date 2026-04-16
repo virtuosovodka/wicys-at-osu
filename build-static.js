@@ -81,16 +81,29 @@ function writePage(filePath, html) {
     let correctedHtml = html
         // Handle href="/" -> href to index
         .replace(/href="\/"(?![^"]*")(?!([^"]*"){1}[^"]*$)/g, `href="${depth}index.html"`)
-        // Handle other absolute href paths
-        .replace(/href="\/([^"]+)"/g, `href="${depth}$1"`)
+        // Handle other absolute href paths (but keep images with /images prefix)
+        .replace(/href="\/([^"]+)"/g, (match, p1) => {
+            // If it starts with 'images', keep the path structure
+            if (p1.startsWith('images')) return `href="${depth}${p1}"`;
+            return `href="${depth}static/${p1}"`;
+        })
         // Handle src paths
-        .replace(/src="\/([^"]+)"/g, `src="${depth}$1"`);
+        .replace(/src="\/([^"]+)"/g, (match, p1) => {
+            if (p1.startsWith('images')) return `src="${depth}${p1}"`;
+            return `src="${depth}static/${p1}"`;
+        });
 
     // Also handle single quotes if they exist
     correctedHtml = correctedHtml
         .replace(/href='\/'/g, `href='${depth}index.html'`)
-        .replace(/href='\/([^']+)'/g, `href='${depth}$1'`)
-        .replace(/src='\/([^']+)'/g, `src='${depth}$1'`);
+        .replace(/href='\/([^']+)'/g, (match, p1) => {
+            if (p1.startsWith('images')) return `href='${depth}${p1}'`;
+            return `href='${depth}static/${p1}'`;
+        })
+        .replace(/src='\/([^']+)'/g, (match, p1) => {
+            if (p1.startsWith('images')) return `src='${depth}${p1}'`;
+            return `src='${depth}static/${p1}'`;
+        });
 
     fs.writeFileSync(filePath, correctedHtml);
     console.log(`✓ Generated: ${path.relative(outputDir, filePath)}`);
